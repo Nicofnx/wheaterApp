@@ -1,0 +1,130 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    color: #fff;
+}
+
+body {
+    background-image: linear-gradient(to right top, #d18a6b, #dc7e7c, #dd7695, #d076b4, #b07dd2, #9b7ede, #7f80ea, #5183f4, #507bf7, #5273f9, #5769fb, #5f5ffb);
+}
+
+.container-web {
+    
+    max-width: 1020px;
+    
+
+    
+}
+
+header {
+    width: 100%;
+    
+    
+}
+
+.img-logo{
+    width: 100px;
+}
+
+nav {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.input-city{    
+    position: absolute;
+    border-style: none;
+    
+}
+
+.box_switch{
+    width: 140px;
+    display: none !important;
+    padding-right: 5px;
+    display: flex;
+    align-items: center;
+    color: #fff;
+    font-size: 20px;
+    
+}
+.input_label {
+    font-size: 14px;
+}
+
+@media (min-width: 576px) { 
+    .box_switch {
+        display: flex!important;
+        margin: 5px;
+        
+    }
+    .box_switch_desktop {
+        display: none!important;
+    }
+}
+
+.box_switch_desktop{
+    width: 140px;
+    margin: auto;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    color: #fff;
+    font-size: 20px;
+    
+}
+
+.bg-glass {
+    /* From https://css.glass */
+    background: rgba(255, 255, 255, 0.1);
+    
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(7.6px);
+    -webkit-backdrop-filter: blur(7.6px);
+}
+
+
+
+.menu-days ul {
+    display: flex;
+    justify-content: space-around;
+    padding: 0;
+}
+
+.menu-days ul li{
+    color: #fff;
+    cursor: pointer;
+    list-style: none;
+    
+}
+
+
+
+.menu-days ul li a{
+    text-decoration: none;
+    color: #fff;
+    
+}
+
+
+
+.day-selected{
+    border-bottom: 1px solid #fff;
+}
+
+
+
+
+.img-clima{
+    width: 100px;
+}
+
+#temp {
+    font-size: 30px;
+}
+
+footer{
+    
+    background-color: #5769fb;
+}
