@@ -5,15 +5,17 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./css/style.css">
+    <link rel="shortcut icon" href="./assets/logos/clima-logo.png" type="image/x-icon">
     <!--Boostrap-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <!--Fheater Icons-->
     <script src="https://unpkg.com/feather-icons"></script>
-    <title>JS</title>
+    <title>SunWheather App</title>
 </head>
 <body>
-    <header > 
-        
+
+    <!---------HEADER----------->
+    <header >         
         <nav class="navbar navbar-light bg-glass ">
             <div class="container-fluid d-flex justify-content-between align-items-center flex-nowrap">
               <a class="navbar-brand"><img src="./assets/logos/clima-logo.png" class="img-fluid img-logo m-1" alt=""></a>
@@ -30,6 +32,8 @@
             </div>
           </nav>        
     </header>
+    <!-------------------->
+    <!---------SELECCION DE DIAS----------->
     <div class="menu-days mt-3">
         <ul>
             <li>
@@ -43,6 +47,7 @@
             </li>
         </ul>
     </div>
+    <!----------ELECCION DE C o F---------->
     <div class="box_switch_desktop">
         <div class="box-switch form-check form-switch text-center ">
             <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
@@ -50,8 +55,9 @@
         </div>
     </div>
     
-
+    <!-------------------->
     <div class="container-fluid container-web">
+        <!----------CARD TODAY---------->
         <div class="row justify-content-center">
             <section id="today" class="col-10 m-1 mt-3 col-sm-4 col-md-3">
                 <div class="bg-glass">
@@ -77,11 +83,11 @@
                                 
                     </div>
                 </div>
-                    
+                  <!-------------------->  
                            
         
                 
-    
+                <!-----------CARD TOMORROW--------->
             </section>
             <section id="tomorrow" class=" col-10 m-1 mt-3 col-sm-4 col-md-3">
                 <div class="bg-glass">
@@ -109,7 +115,8 @@
                 </div>
                 
             </section>
-
+            <!-------------------->
+            <!--------CARDS DIAS POSTERIORES------------>
             <section id="fivedays" class="mt-5 mb-5">
                 <div class="row">
                     <div class="col-4">
@@ -170,6 +177,8 @@
         </div>
 
     </div>
+    <!-------------------->
+    <!---------FOOTER----------->
     <footer>
         <h1 class="text-center pt-3">SunWheather app web</h1>
         <h3 class="text-center">Create by NicoFnX</h3>
@@ -183,7 +192,7 @@
     <script>
         feather.replace()
       </script>
-    <script src="./js/javascript.js"></script>
+    <script src="./js/index.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
 </body>
