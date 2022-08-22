@@ -17,14 +17,14 @@ const toDay = [{
     humedity: 60
 },{
     city: 'Pueblo nuevo',
-    temp: 270,
-    tempMax: 310,
-    tempMin: 210,
+    temp: 27,
+    tempMax: 30,
+    tempMin: 21,
     humedity: 59
 },{
     city: 'Rodriguez',
-    temp: 24000,
-    tempMax: 29000,
+    temp: 24,
+    tempMax: 29,
     tempMin: 15,
     humedity: 50
 },];
@@ -45,7 +45,7 @@ const tomorrow = [{
     city: 'Rodriguez',
     temp: 28,
     tempMax: 34,
-    tempMin: 23000,
+    tempMin: 23,
     humedity: 55
 },];
 
