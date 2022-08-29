@@ -85,10 +85,7 @@ const tomorrow = [{
     tempMin: 27,
     humedity: 48
 }];
-toDay.forEach((el)=>{
-    let list = el.city
-    console.log(list)
-});
+
 
 let menu = parseInt(prompt('Ingrese 1 para saber el tiempo\nIngrese 2 para anadir ciudades a favoritos'));
 
