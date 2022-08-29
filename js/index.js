@@ -147,8 +147,7 @@ else if (menu == 2) {
     //Bloque de funciones
 
     //Fuencion para agregar a favoritos
-    const addFavorites= (favoriteCitys) => {
-        newFav = prompt('Ingrese ciudad a guardar en favoritos o "ESC" para finalizar');
+    const addFavorites= (newFav) => {        
         if(newFav == '' || newFav == null){
             alert('Ingreso no valido. Debe indicar un nombre o "ESC" para finalizar')
         }
@@ -203,7 +202,8 @@ else if (menu == 2) {
     
                 
                 do{
-                    addFavorites(favoriteCitys);                    
+                    newFav = prompt('Ingrese ciudad a guardar en favoritos o "ESC" para finalizar');
+                    addFavorites(newFav);                    
                 }
                 while(newFav != 'ESC');
             }
