@@ -187,7 +187,7 @@ else if (menu == 2) {
 
     //Funcion de busqueda de ciudad guardada en favoritos
     const searchCity = (inputCitysearch)=>{        
-        let isInList = listCitysFavs.toLowerCase().includes(inputCitysearch.toLowerCase());
+        let isInList = favoriteCitys.toString().toLowerCase().includes(inputCitysearch.toLowerCase());
         return isInList;
     }
     ////////////////////////////////
