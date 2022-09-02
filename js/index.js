@@ -1,4 +1,4 @@
-
+const d = document;
 
 //Este es el pedido a la api a usar en el futuro
 /* async function loadData() {
@@ -7,6 +7,41 @@
     console.log(data)
 }
 loadData() */
+
+//Bloque de Fechas. Se utilizara para luego dar en cada card la fecha correspondiente al dia de "Hoy" y a los 5 dias posteriores
+const monthNames = [
+    "Enero", "Febrero", "marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
+];
+
+getLongMonthName = function(date) {
+    return monthNames[date.getMonth()];
+}
+
+getShortMonthName = function(date) {
+    return monthNames[date.getMonth()].substring(0, 3);
+}
+
+
+let date = new Date();
+
+
+let day = date.getDate();
+let month = getShortMonthName(date);
+//Obtengo la fecha de hoy dia y es para la card HOY
+let dateToday = `${day} ${month}`
+
+
+const fechaDeManana = () => {
+    let hoy = new Date();
+    let DIA_EN_MILISEGUNDOS = 24 * 60 * 60 * 1000;
+    let manana = new Date(hoy.getTime() + DIA_EN_MILISEGUNDOS);
+    return manana;
+};
+
+let dayTomorrow = fechaDeManana().getDate()
+let monthTomorrow = getShortMonthName(fechaDeManana())
+//Obtengo la fecha de manana dia y es para la card MANANA
+let dateTomorrow = `${dayTomorrow} ${monthTomorrow}`
 
 
 //Simulo una respuesta de la api con datos de hoy y datos de manana
@@ -67,24 +102,57 @@ const tomorrow = [{
     tempMin: 23,
     humedity: 55
 },{
-    city: 'Capital federa',
-    temp: 27,
-    tempMax: 30,
-    tempMin: 21,
-    humedity: 57
+    city: 'Capital federal',
+    temp: 29,
+    tempMax: 32,
+    tempMin: 24,
+    humedity: 51
 },{
     city: 'Mar del plata',
-    temp: 23,
-    tempMax: 27,
-    tempMin: 19,
-    humedity: 78
+    temp: 25,
+    tempMax: 29,
+    tempMin: 21,
+    humedity: 65
 },{
     city: 'La plata',
-    temp: 34,
-    tempMax: 36,
-    tempMin: 27,
-    humedity: 48
+    temp: 35,
+    tempMax: 39,
+    tempMin: 26,
+    humedity: 52
 }];
+
+const $today = d.querySelector('#today')
+const $tomorrow = d.querySelector('#tomorrow')
+const $nameCity = d.querySelector('#namecity')
+
+//Plantilla de cards principales HOY y MANANA
+const principalCards = (temp, tempMax, tempMin, humedity, date, moment) =>{
+    return plantilla = `
+    <div class="bg-glass">
+        <div class="card bg-transparent bg-glass border-white p-1" >
+            <h2 class="text-center">${moment}</h2>
+            <h5 class="text-center">${date}</h5>
+            <div class="img-temp d-flex justify-content-center align-items-center">
+                <img src="./assets/logos/pngwing.com.png" class=" img-clima" alt="logo del pronostico del dia">
+                <div>
+                    <h2 id="temptoday" class="m-2">${temp}</h2>
+                </div>
+            </div>                
+            <div class="card-body">
+                <h5 class="card-title fs-5 text-center">Dia inestable</h5>
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item bg-transparent border-white text-center">Temp max: <span class="fw-bold">${tempMax} C°</span></li>
+                <li class="list-group-item bg-transparent border-white text-center">Temp min: <span class="fw-bold">${tempMin} C°</span></li>
+                <li class="list-group-item bg-transparent border-white text-center">Humedad: <span class="fw-bold">${humedity} %</span></li>
+            </ul>                
+        </div>
+    </div>
+`
+
+}
+
+
 
 
 let menu = parseInt(prompt('Ingrese 1 para saber el tiempo\nIngrese 2 para anadir ciudades a favoritos'));
@@ -115,7 +183,10 @@ if(menu == 1){
             if( choseCity == (index+1)){       
                 const {city, temp, tempMax, tempMin, humedity} = toDay[index];
                 //A futuro en vez de un 'alert' se actualizara la card correspondiente al dia.                              
-                alert(`La temperatura de hoy en ${city} es de ${temp}°C con una humedad del ${humedity}% \nLa temperatura minima es de ${tempMin}°C y la temperatura maxima es de ${tempMax}°C`);
+                //alert(`La temperatura de hoy en ${city} es de ${temp}°C con una humedad del ${humedity}% \nLa temperatura minima es de ${tempMin}°C y la temperatura maxima es de ${tempMax}°C`);
+                $nameCity.innerHTML = city
+                $today.innerHTML =principalCards(temp,tempMax,tempMin,humedity, dateToday,'Hoy')
+                
                 };
             
             
@@ -125,8 +196,8 @@ if(menu == 1){
                 
             if( choseCity == (index+1)){                   
                 const {temp, tempMax, tempMin, humedity} = tomorrow[index];                
-                alert(`La temperatura de manana sera de ${temp}°C con una humedad del ${humedity}% \nCon una temperatura minima de ${tempMin}°C y temperatura maxima es de ${tempMax}°C`);
-                
+                //alert(`La temperatura de manana sera de ${temp}°C con una humedad del ${humedity}% \nCon una temperatura minima de ${tempMin}°C y temperatura maxima es de ${tempMax}°C`);
+                $tomorrow.innerHTML = principalCards(temp,tempMax,tempMin,humedity,dateTomorrow, `Mañana`)
             }
             
         }
@@ -257,28 +328,7 @@ else if (menu == 2) {
 }
 
 
-//Bloque de Fechas. Se utilizara para luego dar en cada card la fecha correspondiente al dia de "Hoy" y a los 5 dias posteriores
-const monthNames = [
-    "Enero", "Febrero", "marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
-];
 
-getLongMonthName = function(date) {
-    return monthNames[date.getMonth()];
-}
-
-getShortMonthName = function(date) {
-    return monthNames[date.getMonth()].substring(0, 3);
-}
-
-
-let date = new Date();
-console.log(date);
-
-let day = date.getDate();
-let month = getShortMonthName(date);
-
-console.log(day);
-console.log(month);
 
 
 
