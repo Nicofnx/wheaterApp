@@ -33,14 +33,25 @@ nav {
     justify-content: space-between;
 }
 
+.form_box{
+    width: 600px;
+}
+
+#selectcity{
+    width: 100%;
+}
+
 .input-city{    
     position: absolute;
     border-style: none;
     
 }
+.optionCity{
+    color: #000;
+}
 
 .box_switch{
-    width: 140px;
+    min-width: 120px;
     display: none !important;
     padding-right: 5px;
     display: flex;
@@ -48,9 +59,18 @@ nav {
     color: #fff;
     font-size: 20px;
     
+    
+}
+
+.box-switch{
+    margin: auto;
 }
 .input_label {
     font-size: 14px;
+}
+
+#btnfav{
+    color: #000;
 }
 
 @media (min-width: 576px) { 

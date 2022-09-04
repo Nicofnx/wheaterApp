@@ -121,9 +121,13 @@ const tomorrow = [{
     humedity: 52
 }];
 
+//Variables donde guardo los elementos HTML, los identifico con un $ para diferenciar de variables logicas
 const $today = d.querySelector('#today')
 const $tomorrow = d.querySelector('#tomorrow')
 const $nameCity = d.querySelector('#namecity')
+const $btnSearch = d.querySelector('#btnsearh')
+const $btnFav = d.querySelector('#btnfav')
+const $selectCity = d.querySelector('#selectcity')
 
 //Plantilla de cards principales HOY y MANANA
 const principalCards = (temp, tempMax, tempMin, humedity, date, moment) =>{
@@ -151,63 +155,62 @@ const principalCards = (temp, tempMax, tempMin, humedity, date, moment) =>{
 `
 
 }
+//Con este map creo las opciones del select en base a la cantidad de ciudades que tengo en el objeto
+toDay.map((el)=>{
+    const $option = d.createElement('option')
+    $option.setAttribute('value', el.city)
+    $option.textContent = el.city
+    $option.classList.add('optionCity')
+    $selectCity.appendChild($option)
+})
 
+//Creo una escucha sobre el boton de busqueda para tomar el valor del option elegido
+ $btnSearch.addEventListener('click',(e)=>{
+    e.preventDefault()
 
+    let ciudadelegida = $selectCity.value
+    console.log(ciudadelegida)
 
-
-let menu = parseInt(prompt('Ingrese 1 para saber el tiempo\nIngrese 2 para anadir ciudades a favoritos'));
-
-if(menu == 1){
-    //Se realizara la busqueda desde el serch la cuidad que desea buscar. Cuando veamos storage se almacenaran las favoritas y cuando veamos geolocalizacion se realizara una busqueda por defecto en la ubicacion del usuario.
+    //Llamada a la funcion de la iteracion, donde por parametro le paso el objeto a iterar y la ciudad seleccionada en el select.
+    dataClimaToday(toDay, tomorrow,ciudadelegida);
     
-    const listcitys = () => {
-        let listcitys=[];
-        let count=0;
-        toDay.forEach((el)=>{
-            count++;
-            listcitys += [`Ciudad Nro ${count}: ${el.city}\n`]    ;    
-        })
-        return listcitys;
-    };
-    
-    let choseCity = prompt(`Ingresa ciudad de la lista\n${listcitys(toDay)}`);
-    
-    //Itero los objetos para obtener los datos que necesito de la resp de la api.
-    const dataClimaToday = (toDay, tomorrow) => {
+})
+
+//Itero los objetos para obtener los datos que necesito de la resp de la api.
+
+const dataClimaToday = (toDay, tomorrow, ciudadelegida) => {
         
-    
-        for (let index = 0; index < toDay.length; index++){
-            
-           
-            
-            if( choseCity == (index+1)){       
-                const {city, temp, tempMax, tempMin, humedity} = toDay[index];
-                //A futuro en vez de un 'alert' se actualizara la card correspondiente al dia.                              
-                //alert(`La temperatura de hoy en ${city} es de ${temp}°C con una humedad del ${humedity}% \nLa temperatura minima es de ${tempMin}°C y la temperatura maxima es de ${tempMax}°C`);
-                $nameCity.innerHTML = city
-                $today.innerHTML =principalCards(temp,tempMax,tempMin,humedity, dateToday,'Hoy')
+            for (let index = 0; index < toDay.length; index++){
+                const {city} = toDay[index];
+       
+        
+                if( ciudadelegida == city){       
+                    const {city, temp, tempMax, tempMin, humedity} = toDay[index];
+                    $nameCity.innerHTML = city
+                    $today.innerHTML =principalCards(temp,tempMax,tempMin,humedity, dateToday,'Hoy')
+                    
+                    };
                 
-                };
-            
-            
-        };
-        for (let index = 0; index < tomorrow.length; index++) {
-    
                 
-            if( choseCity == (index+1)){                   
-                const {temp, tempMax, tempMin, humedity} = tomorrow[index];                
-                //alert(`La temperatura de manana sera de ${temp}°C con una humedad del ${humedity}% \nCon una temperatura minima de ${tempMin}°C y temperatura maxima es de ${tempMax}°C`);
-                $tomorrow.innerHTML = principalCards(temp,tempMax,tempMin,humedity,dateTomorrow, `Mañana`)
+            };
+            for (let index = 0; index < tomorrow.length; index++) {
+                const {city} = toDay[index];
+                    
+                if( ciudadelegida == city){                   
+                    const {temp, tempMax, tempMin, humedity} = tomorrow[index];                
+                    $tomorrow.innerHTML = principalCards(temp,tempMax,tempMin,humedity,dateTomorrow, `Mañana`)
+                }
+                
             }
+
             
-        }
-    }
-    //Llamada a la funcion de la iteracion, donde por parametro le paso el objeto a iterar.
-    dataClimaToday(toDay, tomorrow);
+    
 }
 
-//Segunda opcion del menu para el agregado de ciudades a favoritos
-else if (menu == 2) {
+
+//Agrego boton para ejecutar el menu para agregar ciudades como favoritas
+$btnFav.addEventListener('click',(e)=>{
+    e.preventDefault()    
 
     const favoriteCitys = [];
 
@@ -323,9 +326,11 @@ else if (menu == 2) {
     
     
 
-} else {
-    alert('Programa finalizado');
-}
+} 
+)
+
+
+
 
 
 
