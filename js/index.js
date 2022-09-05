@@ -25,23 +25,20 @@ getShortMonthName = function(date) {
 let date = new Date();
 
 
-let day = date.getDate();
-let month = getShortMonthName(date);
 //Obtengo la fecha de hoy dia y es para la card HOY
-let dateToday = `${day} ${month}`
+let dateToday = `${date.getDate()} ${getShortMonthName(date)}`
 
 
 const fechaDeManana = () => {
-    let hoy = new Date();
+    let today = new Date();
     let DIA_EN_MILISEGUNDOS = 24 * 60 * 60 * 1000;
-    let manana = new Date(hoy.getTime() + DIA_EN_MILISEGUNDOS);
-    return manana;
+    let tomorrow = new Date(today.getTime() + DIA_EN_MILISEGUNDOS);
+    return tomorrow;
 };
 
-let dayTomorrow = fechaDeManana().getDate()
-let monthTomorrow = getShortMonthName(fechaDeManana())
+
 //Obtengo la fecha de manana dia y es para la card MANANA
-let dateTomorrow = `${dayTomorrow} ${monthTomorrow}`
+let dateTomorrow = `${fechaDeManana().getDate()} ${getShortMonthName(fechaDeManana())}`
 
 
 //Simulo una respuesta de la api con datos de hoy y datos de manana
@@ -139,15 +136,15 @@ const principalCards = (temp, tempMax, tempMin, humedity, date, moment) =>{
             <div class="img-temp d-flex justify-content-center align-items-center">
                 <img src="./assets/logos/pngwing.com.png" class=" img-clima" alt="logo del pronostico del dia">
                 <div>
-                    <h2 id="temptoday" class="m-2">${temp}</h2>
+                    <h2 id="temptoday" class="m-2">${temp} °C</h2>
                 </div>
             </div>                
             <div class="card-body">
                 <h5 class="card-title fs-5 text-center">Dia inestable</h5>
             </div>
             <ul class="list-group list-group-flush">
-                <li class="list-group-item bg-transparent border-white text-center">Temp max: <span class="fw-bold">${tempMax} C°</span></li>
-                <li class="list-group-item bg-transparent border-white text-center">Temp min: <span class="fw-bold">${tempMin} C°</span></li>
+                <li class="list-group-item bg-transparent border-white text-center">Temp max: <span class="fw-bold">${tempMax} °C</span></li>
+                <li class="list-group-item bg-transparent border-white text-center">Temp min: <span class="fw-bold">${tempMin} °C</span></li>
                 <li class="list-group-item bg-transparent border-white text-center">Humedad: <span class="fw-bold">${humedity} %</span></li>
             </ul>                
         </div>
@@ -168,23 +165,23 @@ toDay.map((el)=>{
  $btnSearch.addEventListener('click',(e)=>{
     e.preventDefault()
 
-    let ciudadelegida = $selectCity.value
-    console.log(ciudadelegida)
+    let chosenCity = $selectCity.value
+    console.log(chosenCity)
 
     //Llamada a la funcion de la iteracion, donde por parametro le paso el objeto a iterar y la ciudad seleccionada en el select.
-    dataClimaToday(toDay, tomorrow,ciudadelegida);
+    dataClimaToday(toDay, tomorrow,chosenCity);
     
 })
 
 //Itero los objetos para obtener los datos que necesito de la resp de la api.
 
-const dataClimaToday = (toDay, tomorrow, ciudadelegida) => {
+const dataClimaToday = (toDay, tomorrow, chosenCity) => {
         
             for (let index = 0; index < toDay.length; index++){
                 const {city} = toDay[index];
        
         
-                if( ciudadelegida == city){       
+                if( chosenCity == city){       
                     const {city, temp, tempMax, tempMin, humedity} = toDay[index];
                     $nameCity.innerHTML = city
                     $today.innerHTML =principalCards(temp,tempMax,tempMin,humedity, dateToday,'Hoy')
@@ -196,7 +193,7 @@ const dataClimaToday = (toDay, tomorrow, ciudadelegida) => {
             for (let index = 0; index < tomorrow.length; index++) {
                 const {city} = toDay[index];
                     
-                if( ciudadelegida == city){                   
+                if( chosenCity == city){                   
                     const {temp, tempMax, tempMin, humedity} = tomorrow[index];                
                     $tomorrow.innerHTML = principalCards(temp,tempMax,tempMin,humedity,dateTomorrow, `Mañana`)
                 }
@@ -328,6 +325,8 @@ $btnFav.addEventListener('click',(e)=>{
 
 } 
 )
+
+dataClimaToday(toDay, tomorrow,'Lujan');
 
 
 
