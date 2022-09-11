@@ -1,16 +1,15 @@
 const d = document;
 
 async function loadData(chosenCity) {
-    const resp = await fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${chosenCity}&appid=332ea3116732c536f6f7f96e8a9e5cae&units=metric&lang=sp&cnt=5`)
-    const data = await resp.json()
-    console.log(data)
+    const resp = await fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${chosenCity}&appid=332ea3116732c536f6f7f96e8a9e5cae&units=metric&lang=sp&cnt=5`);
+    const data = await resp.json();
+    //console.log(data)
 
     const city = data.city.name
     $nameCity.innerHTML = city
-
     
-    $today.innerHTML =principalCards({...formatData(data, 0), date: dateToday, moment: 'Hoy'})
-    $tomorrow.innerHTML =principalCards({...formatData(data, 1), date: dateTomorrow, moment: 'Mañana'})
+    $today.innerHTML =principalCards({...formatData(data, 0), date: dateToday, moment: 'Hoy'});
+    $tomorrow.innerHTML =principalCards({...formatData(data, 1), date: dateTomorrow, moment: 'Mañana'});
 
     
 }
@@ -22,42 +21,42 @@ const formatData = (data, index) =>{
     const humedity = data.list[index].main.humidity;
     const description = capitalizarPrimeraLetra(data.list[index].weather[0].description);
     
-    let iconImg = ``
+    let iconImg = ``;
 
     switch (data.list[index].weather[0].main) {
         case 'Thunderstorm':
             iconImg='./assets/logos/animated/thunder.svg'
-            console.log('TORMENTA');
+            //console.log('TORMENTA');
           break;
         case 'Drizzle':
             iconImg='./assets/logos/animated/rainy-2.svg'
-            console.log('LLOVIZNA');
+            //console.log('LLOVIZNA');
           break;
         case 'Rain':
             iconImg='./assets/logos/animated/rainy-7.svg'
-            console.log('LLUVIA');
+            //console.log('LLUVIA');
           break;
         case 'Snow':
             iconImg='./assets/logos/animated/snowy-6.svg'
-            console.log('NIEVE');
+            //console.log('NIEVE');
           break;                        
         case 'Clear':
             iconImg='./assets/logos/animated/day.svg'
-            console.log('LIMPIO');
+            //console.log('LIMPIO');
           break;
         case 'Atmosphere':
             iconImg='./assets/logos/animated/weather.svg'
-            console.log('ATMOSFERA');
+            //console.log('ATMOSFERA');
             break;  
         case 'Clouds':
             iconImg='./assets/logos/animated/cloudy-day-1.svg'
-            console.log('NUBES');
+            //console.log('NUBES');
             break;  
         default:
             iconImg='./assets/logos/animated/cloudy-day-1.svg'
-            console.log('por defecto');
+            //console.log('por defecto');
       }
-      return {temp,tempMax,tempMin,humedity,description,iconImg}
+      return {temp,tempMax,tempMin,humedity,description,iconImg};
 }
 
 //Este es el pedido a la api a usar en el futuro
@@ -65,7 +64,7 @@ const formatData = (data, index) =>{
 
 function capitalizarPrimeraLetra(str) {
   return str.charAt(0).toUpperCase() + str.slice(1);
-}
+};
 
 
 
@@ -102,10 +101,11 @@ const fechaDeManana = () => {
 
 
 //Obtengo la fecha de manana dia y es para la card MANANA
-let dateTomorrow = `${fechaDeManana().getDate()} ${getShortMonthName(fechaDeManana())}`
+let dateTomorrow = `${fechaDeManana().getDate()} ${getShortMonthName(fechaDeManana())}`;
 
 
 //Simulo una respuesta de la api con datos de hoy y datos de manana
+//YA NO LO UTILIZO
 const toDay = [{
     city: 'Lujan',
     temp: 25,
@@ -183,12 +183,12 @@ const tomorrow = [{
 }];
 
 //Variables donde guardo los elementos HTML, los identifico con un $ para diferenciar de variables logicas
-const $today = d.querySelector('#today')
-const $tomorrow = d.querySelector('#tomorrow')
-const $nameCity = d.querySelector('#namecity')
-const $btnSearch = d.querySelector('#btnsearh')
-const $btnFav = d.querySelector('#btnfav')
-const $selectCity = d.querySelector('#selectcity')
+const $today = d.querySelector('#today');
+const $tomorrow = d.querySelector('#tomorrow');
+const $nameCity = d.querySelector('#namecity');
+const $btnSearch = d.querySelector('#btnsearh');
+const $btnFav = d.querySelector('#btnfav');
+const $selectCity = d.querySelector('#selectcity');
 
 //Plantilla de cards principales HOY y MANANA
 const principalCards = ({temp, tempMax, tempMin, humedity, description,iconImg, date, moment}) =>{
@@ -215,24 +215,26 @@ const principalCards = ({temp, tempMax, tempMin, humedity, description,iconImg, 
         </div>
     </div>
 `
+};
 
-}
 //Con este map creo las opciones del select en base a la cantidad de ciudades que tengo en el objeto
+//YA NO LO UTILIZO
 toDay.map((el)=>{
     const $option = d.createElement('option')
     $option.setAttribute('value', el.city)
     $option.textContent = el.city
     $option.classList.add('optionCity')
     $selectCity.appendChild($option)
-})
+});
+
 
 //Creo una escucha sobre el boton de busqueda para tomar el valor del option elegido
  $btnSearch.addEventListener('click',(e)=>{
-    e.preventDefault()
+    e.preventDefault();
 
-    let chosenCity = $selectCity.value
-    console.log(chosenCity)
-    loadData(chosenCity)
+    let chosenCity = $selectCity.value;
+    console.log(chosenCity);
+    loadData(chosenCity);
     
     
     
@@ -244,7 +246,7 @@ toDay.map((el)=>{
 })
 
 //Itero los objetos para obtener los datos que necesito de la resp de la api.
-
+//YA NO LO UTILIZO
 const dataClimaToday = (toDay, tomorrow, chosenCity) => {
         
             for (let index = 0; index < toDay.length; index++){
@@ -277,16 +279,25 @@ const dataClimaToday = (toDay, tomorrow, chosenCity) => {
 
 //Agrego boton para ejecutar el menu para agregar ciudades como favoritas
 $btnFav.addEventListener('click',(e)=>{
-    e.preventDefault()    
+    e.preventDefault();    
 
-    const favoriteCitys = [];
+    let favoriteCitys = [];
+    const favoriteCitysInMemory = JSON.parse(localStorage.getItem("favCitys"));
+    
+    if(favoriteCitysInMemory == ''){
+        favoriteCitys = [];
+    }
+    else{
+        favoriteCitys = favoriteCitysInMemory;
+    }
+      
 
     let newFav='';
-   
+    
     let listCitysFavs = '';
     
     //Bloque de funciones
-
+    
     //Fuencion para agregar a favoritos
     const addFavorites= (newFav) => {        
         if(newFav == '' || newFav == null){
@@ -296,24 +307,42 @@ $btnFav.addEventListener('click',(e)=>{
             if(newFav != 'ESC'){
                 favoriteCitys.push(newFav);
                 alert (`Ciudad ${newFav} agregada`);
+                localStorage.setItem("favCitys", JSON.stringify(favoriteCitys));
             };
-
+            
         }
         
     };
     //Funciona para ver lista de favoritos
+    
     const seeCitysFavs = (favoriteCitys) =>{
+        
+        
         listCitysFavs='';
         for (let i = 1; i <= favoriteCitys.length; i++) {       
             listCitysFavs +=  `Ciudad Nro ${i} ${favoriteCitys[i-1]}\n`  ; 
         };
         return(listCitysFavs);
     };
+
+    const loadDataStorage = (favoriteCitys, index) =>{
+        listCitysFavs='';
+        for (let i = 1; i <= favoriteCitys.length; i++) {       
+            listCitysFavs += favoriteCitys[i-1];
+            if(i == index){
+                loadData(favoriteCitys[i-1]);
+            }
+        };
+        
+    
+    };
+
     //Funcion para eliminar una ciudad de la lista de favoritos
     const deleteCityFavs = (favoriteCitys) => {
         let optionDelete = parseInt(prompt(`Ingrese el numero de ciudad a borrar de favoritos:\n${seeCitysFavs(favoriteCitys)}`));
         if(optionDelete > 0){
             favoriteCitys.splice(optionDelete-1,1);
+            localStorage.setItem("favCitys", JSON.stringify(favoriteCitys));
             if(seeCitysFavs(favoriteCitys)==''){
                 alert('No hay mas ciudades en favoritos');
             }
@@ -337,7 +366,7 @@ $btnFav.addEventListener('click',(e)=>{
             
         while(operaciones != 5){
 
-            operaciones = parseInt(prompt('Ingrese:\n1 para agregar ciudad a favorito\n2 para ver todas las ciudades de favoritos\n3 para eliminar una ciudad de favoritos\n4 para buscar si existe ciudad guardada en favoritos\n5 Para salir'));
+            operaciones = parseInt(prompt('Ingrese:\n1 para agregar ciudad a favorito\n2 para cargar una ciudad de favoritos\n3 para eliminar una ciudad de favoritos\n4 para buscar si existe ciudad guardada en favoritos\n5 Para salir'));
             //Operacion 1 agregado de ciudades a favoritos
             if(operaciones === 1){          
     
@@ -350,14 +379,15 @@ $btnFav.addEventListener('click',(e)=>{
             }
             //Operacion 2 para visualizar todas las ciudades en favoritos
             else if(operaciones === 2) {
-                if( favoriteCitys == ''){
+                if( favoriteCitys == '' && favoriteCitysInMemory == ''){
                     alert('No hay ciudades en favoritos');
                     
                 }
                 else{
-                    alert(seeCitysFavs(favoriteCitys));
-                    
+                    let loadCity = parseInt(prompt(`Elija la ciudad a cargar\n${seeCitysFavs(favoriteCitys, favoriteCitysInMemory)}`));
+                    loadDataStorage(favoriteCitys, loadCity)
                 }
+                break;
                                             
                     
             }
@@ -396,7 +426,7 @@ $btnFav.addEventListener('click',(e)=>{
 } 
 )
 
-loadData('Lujan')
+loadData('Buenos Aires');
 
 
 
