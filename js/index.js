@@ -1,12 +1,76 @@
 const d = document;
 
-//Este es el pedido a la api a usar en el futuro
-/* async function loadData() {
-    const resp = await fetch('https://api.openweathermap.org/data/2.5/weather?lat=-34.5670936&lon=-59.1515603&appid=332ea3116732c536f6f7f96e8a9e5cae')
+async function loadData(chosenCity) {
+    const resp = await fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${chosenCity}&appid=332ea3116732c536f6f7f96e8a9e5cae&units=metric&lang=sp&cnt=5`)
     const data = await resp.json()
     console.log(data)
+
+    const city = data.city.name
+    $nameCity.innerHTML = city
+
+    
+    $today.innerHTML =principalCards({...formatData(data, 0), date: dateToday, moment: 'Hoy'})
+    $tomorrow.innerHTML =principalCards({...formatData(data, 1), date: dateTomorrow, moment: 'Mañana'})
+
+    
 }
-loadData() */
+
+const formatData = (data, index) =>{
+    const temp = data.list[index].main.temp.toFixed(1);
+    const tempMax = data.list[index].main.temp_max.toFixed(1);
+    const tempMin = data.list[index].main.temp_min.toFixed(1);
+    const humedity = data.list[index].main.humidity;
+    const description = capitalizarPrimeraLetra(data.list[index].weather[0].description);
+    
+    let iconImg = ``
+
+    switch (data.list[index].weather[0].main) {
+        case 'Thunderstorm':
+            iconImg='./assets/logos/animated/thunder.svg'
+            console.log('TORMENTA');
+          break;
+        case 'Drizzle':
+            iconImg='./assets/logos/animated/rainy-2.svg'
+            console.log('LLOVIZNA');
+          break;
+        case 'Rain':
+            iconImg='./assets/logos/animated/rainy-7.svg'
+            console.log('LLUVIA');
+          break;
+        case 'Snow':
+            iconImg='./assets/logos/animated/snowy-6.svg'
+            console.log('NIEVE');
+          break;                        
+        case 'Clear':
+            iconImg='./assets/logos/animated/day.svg'
+            console.log('LIMPIO');
+          break;
+        case 'Atmosphere':
+            iconImg='./assets/logos/animated/weather.svg'
+            console.log('ATMOSFERA');
+            break;  
+        case 'Clouds':
+            iconImg='./assets/logos/animated/cloudy-day-1.svg'
+            console.log('NUBES');
+            break;  
+        default:
+            iconImg='./assets/logos/animated/cloudy-day-1.svg'
+            console.log('por defecto');
+      }
+      return {temp,tempMax,tempMin,humedity,description,iconImg}
+}
+
+//Este es el pedido a la api a usar en el futuro
+
+
+function capitalizarPrimeraLetra(str) {
+  return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
+
+
+
+
 
 //Bloque de Fechas. Se utilizara para luego dar en cada card la fecha correspondiente al dia de "Hoy" y a los 5 dias posteriores
 const monthNames = [
@@ -127,20 +191,21 @@ const $btnFav = d.querySelector('#btnfav')
 const $selectCity = d.querySelector('#selectcity')
 
 //Plantilla de cards principales HOY y MANANA
-const principalCards = (temp, tempMax, tempMin, humedity, date, moment) =>{
+const principalCards = ({temp, tempMax, tempMin, humedity, description,iconImg, date, moment}) =>{
+
     return plantilla = `
     <div class="bg-glass">
         <div class="card bg-transparent bg-glass border-white p-1" >
             <h2 class="text-center">${moment}</h2>
             <h5 class="text-center">${date}</h5>
             <div class="img-temp d-flex justify-content-center align-items-center">
-                <img src="./assets/logos/pngwing.com.png" class=" img-clima" alt="logo del pronostico del dia">
+                <img src="${iconImg}" class=" img-clima" alt="logo del pronostico del dia">
                 <div>
                     <h2 id="temptoday" class="m-2">${temp} °C</h2>
                 </div>
             </div>                
             <div class="card-body">
-                <h5 class="card-title fs-5 text-center">Dia inestable</h5>
+                <h5 class="card-title fs-5 text-center">${description}</h5>
             </div>
             <ul class="list-group list-group-flush">
                 <li class="list-group-item bg-transparent border-white text-center">Temp max: <span class="fw-bold">${tempMax} °C</span></li>
@@ -167,9 +232,14 @@ toDay.map((el)=>{
 
     let chosenCity = $selectCity.value
     console.log(chosenCity)
+    loadData(chosenCity)
+    
+    
+    
+    
 
     //Llamada a la funcion de la iteracion, donde por parametro le paso el objeto a iterar y la ciudad seleccionada en el select.
-    dataClimaToday(toDay, tomorrow,chosenCity);
+    //dataClimaToday(toDay, tomorrow,chosenCity);
     
 })
 
@@ -195,7 +265,7 @@ const dataClimaToday = (toDay, tomorrow, chosenCity) => {
                     
                 if( chosenCity == city){                   
                     const {temp, tempMax, tempMin, humedity} = tomorrow[index];                
-                    $tomorrow.innerHTML = principalCards(temp,tempMax,tempMin,humedity,dateTomorrow, `Mañana`)
+                    $tomorrow.innerHTML = principalCards(temp,tempMax,tempMin,humedity,'Cielo claro', dateTomorrow, `Mañana`)
                 }
                 
             }
@@ -326,7 +396,7 @@ $btnFav.addEventListener('click',(e)=>{
 } 
 )
 
-dataClimaToday(toDay, tomorrow,'Lujan');
+loadData('Lujan')
 
 
 

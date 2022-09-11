@@ -20,44 +20,32 @@
             <div class="container-fluid d-flex justify-content-between align-items-center flex-nowrap">
               <a class="navbar-brand"><img src="./assets/logos/clima-logo.png" class="img-fluid img-logo m-1" alt=""></a>
               <form class="d-flex justify-content-between align-items-center form_box">
-                <!-- <input class="form-control me-2" type="search" placeholder="Ciudad" aria-label="Search"> -->
-                <select id="selectcity" class="form-control me-2" name="select">
-                    
-                  </select>
-
-                <div class="box_switch">
-                    <button id="btnsearh" class="btn btn-outline-success bg-light" type="submit">🔍</button>
-                    <button id="btnfav" class="btn btn-outline-success bg-light" type="submit">Fav</button>
-                </div>
+                <input id="selectcity" class="form-control me-2" type="search" placeholder="Ciudad" aria-label="Search" alue="" class="optionCity">
+                <!-- <select id="selectcity" class="form-control me-2" name="select">
+                    <option value="" class="optionCity">Elegir ciudad</option>
+                </select> -->
+                <button id="btnsearh" class="btn btn-outline-success bg-light" type="submit">🔍</button>
+                <button id="btnfav" class="btn btn-outline-success bg-light m-2" type="submit">Fav</button>
               </form>
             </div>
           </nav>        
     </header>
-    <!-------------------->
-    <!---------SELECCION DE DIAS----------->
-    <div class="menu-days mt-3">
-        <ul>
-            <li>
-                <a class="day-selected" href="#today">Hoy</a>
-            </li>
-            <li>
-                <a href="#tomorrow">Manana</a>
-            </li>
-            <li>
-                <a href="#fivedays">5 Dias</a>
-            </li>
-        </ul>
+    <div class="menuFav">
+        <p></p>
+
     </div>
+    <!-------------------->
+
     <!----------ELECCION DE C o F---------->
-    <div class="box_switch_desktop">
+    <!-- <div class="box_switch_desktop">
         <div class="box-switch form-check form-switch text-center ">
             <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
             <label class="input_label form-check-label" for="flexSwitchCheckDefault">C° / F°</label>
         </div>
-    </div>
+    </div> -->
     
     <!-------------------->
-    <div class="container-fluid container-web">
+    <div class="container-fluid container-web mt-3">
         <!----------CARD TODAY---------->
         <div class="row justify-content-center">
             <div class="text-center">

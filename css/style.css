@@ -62,6 +62,10 @@ nav {
     
 }
 
+#btnsearh{
+    display: block!important
+}
+
 .box-switch{
     margin: auto;
 }
