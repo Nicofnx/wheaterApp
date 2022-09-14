@@ -18,12 +18,10 @@ async function loadData(chosenCity) {
     $today.innerHTML =principalCards({...formatData(data, 0), date: dateToday, moment: 'Hoy'});
     $tomorrow.innerHTML =principalCards({...formatData(data, 1), date: dateTomorrow, moment: 'Mañana'});
 
-    changeBackground(data)
-}
-
-const changeBackground = (data) => {
     formatData(data, 0)
 }
+
+
 
 const formatData = (data, index) =>{
     const temp = data.list[index].main?.temp.toFixed(1) || 'sin dato';
@@ -79,7 +77,7 @@ const formatData = (data, index) =>{
 
             //console.log('por defecto');
       }
-      return {temp,tempMax,tempMin,humedity,description,iconImg, background};
+      return {temp,tempMax,tempMin,humedity,description,iconImg};
 }
 
 //Este es el pedido a la api a usar en el futuro
