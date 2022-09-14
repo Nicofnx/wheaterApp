@@ -5,9 +5,55 @@
     color: #fff;
 }
 
-body {
-    background-image: linear-gradient(to right top, #d18a6b, #dc7e7c, #dd7695, #d076b4, #b07dd2, #9b7ede, #7f80ea, #5183f4, #507bf7, #5273f9, #5769fb, #5f5ffb);
+.Clear {
+    background-image: url(/assets/imagenes/clear_sky.webp);
+    background-repeat: no-repeat;
+    background-size: cover;
+    backdrop-filter: blur(3px);
 }
+
+.Thunderstorm {
+    background-image: url(/assets/imagenes/Thunderstorm.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    backdrop-filter: blur(3px);
+}
+
+.Rain {
+    background-image: url(/assets/imagenes/Rain.jpeg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    backdrop-filter: blur(3px);
+}
+
+.Drizzle {
+    background-image: url(/assets/imagenes/Drizzle.webp);
+    background-repeat: no-repeat;
+    background-size: cover;
+    backdrop-filter: blur(3px);
+}
+
+.Snow {
+    background-image: url(/assets/imagenes/Snow.webp);
+    background-repeat: no-repeat;
+    background-size: cover;
+    backdrop-filter: blur(3px);
+}
+
+.Clouds {
+    background-image: url(/assets/imagenes/Clouds.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    backdrop-filter: blur(3px);
+}
+
+.Atmosphere {
+    background-image: url(/assets/imagenes/clear_sky.webp);
+    background-repeat: no-repeat;
+    background-size: cover;
+    backdrop-filter: blur(3px);
+}
+
 
 .container-web {
     

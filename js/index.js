@@ -1,62 +1,85 @@
 const d = document;
+const $today = d.querySelector('#today');
+const $tomorrow = d.querySelector('#tomorrow');
+const $nameCity = d.querySelector('#namecity');
+const $btnSearch = d.querySelector('#btnsearh');
+const $btnFav = d.querySelector('#btnfav');
+const $selectCity = d.querySelector('#selectcity');
+const $background = d.querySelector('#background')
+
 
 async function loadData(chosenCity) {
     const resp = await fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${chosenCity}&appid=332ea3116732c536f6f7f96e8a9e5cae&units=metric&lang=sp&cnt=5`);
     const data = await resp.json();
-    //console.log(data)
-
-    const city = data.city.name
+    
+    const city = data?.city?.name || 'Ciudad no encontrada'
     $nameCity.innerHTML = city
     
     $today.innerHTML =principalCards({...formatData(data, 0), date: dateToday, moment: 'Hoy'});
     $tomorrow.innerHTML =principalCards({...formatData(data, 1), date: dateTomorrow, moment: 'Mañana'});
 
-    
+    changeBackground(data)
+}
+
+const changeBackground = (data) => {
+    formatData(data, 0)
 }
 
 const formatData = (data, index) =>{
-    const temp = data.list[index].main.temp.toFixed(1);
-    const tempMax = data.list[index].main.temp_max.toFixed(1);
-    const tempMin = data.list[index].main.temp_min.toFixed(1);
-    const humedity = data.list[index].main.humidity;
+    const temp = data.list[index].main?.temp.toFixed(1) || 'sin dato';
+    const tempMax = data.list[index].main?.temp_max.toFixed(1) || 'sin dato';
+    const tempMin = data.list[index].main?.temp_min.toFixed(1)|| 'sin dato';
+    const humedity = data.list[index].main?.humidity || 'sin dato';
     const description = capitalizarPrimeraLetra(data.list[index].weather[0].description);
     
-    let iconImg = ``;
-
+    let iconImg = '';
+    
     switch (data.list[index].weather[0].main) {
         case 'Thunderstorm':
-            iconImg='./assets/logos/animated/thunder.svg'
+            iconImg='./assets/logos/animated/thunder.svg'            
+            $background.className = 'Thunderstorm'
+            
             //console.log('TORMENTA');
           break;
         case 'Drizzle':
             iconImg='./assets/logos/animated/rainy-2.svg'
-            //console.log('LLOVIZNA');
+            $background.className = 'Drizzle' 
+            //console.log('LLOVIZNA');            
+            
           break;
         case 'Rain':
             iconImg='./assets/logos/animated/rainy-7.svg'
-            //console.log('LLUVIA');
+            $background.className = 'Rain' 
+            //console.log('LLUVIA');            
+            
           break;
         case 'Snow':
             iconImg='./assets/logos/animated/snowy-6.svg'
+            $background.className = 'Snow' 
             //console.log('NIEVE');
           break;                        
         case 'Clear':
             iconImg='./assets/logos/animated/day.svg'
+            $background.className = 'Clear'
+            
             //console.log('LIMPIO');
           break;
         case 'Atmosphere':
             iconImg='./assets/logos/animated/weather.svg'
+            $background.className = 'Atmosphere'
             //console.log('ATMOSFERA');
             break;  
         case 'Clouds':
             iconImg='./assets/logos/animated/cloudy-day-1.svg'
+            $background.className = 'Clouds'
             //console.log('NUBES');
             break;  
         default:
             iconImg='./assets/logos/animated/cloudy-day-1.svg'
+
             //console.log('por defecto');
       }
-      return {temp,tempMax,tempMin,humedity,description,iconImg};
+      return {temp,tempMax,tempMin,humedity,description,iconImg, background};
 }
 
 //Este es el pedido a la api a usar en el futuro
@@ -65,9 +88,6 @@ const formatData = (data, index) =>{
 function capitalizarPrimeraLetra(str) {
   return str.charAt(0).toUpperCase() + str.slice(1);
 };
-
-
-
 
 
 
@@ -104,91 +124,7 @@ const fechaDeManana = () => {
 let dateTomorrow = `${fechaDeManana().getDate()} ${getShortMonthName(fechaDeManana())}`;
 
 
-//Simulo una respuesta de la api con datos de hoy y datos de manana
-//YA NO LO UTILIZO
-const toDay = [{
-    city: 'Lujan',
-    temp: 25,
-    tempMax: 32,
-    tempMin: 20,
-    humedity: 60
-},{
-    city: 'Pueblo nuevo',
-    temp: 27,
-    tempMax: 30,
-    tempMin: 21,
-    humedity: 59
-},{
-    city: 'Rodriguez',
-    temp: 24,
-    tempMax: 29,
-    tempMin: 15,
-    humedity: 50
-},{
-    city: 'Capital federa',
-    temp: 27,
-    tempMax: 30,
-    tempMin: 21,
-    humedity: 57
-},{
-    city: 'Mar del plata',
-    temp: 23,
-    tempMax: 27,
-    tempMin: 19,
-    humedity: 78
-},{
-    city: 'La plata',
-    temp: 34,
-    tempMax: 36,
-    tempMin: 27,
-    humedity: 48
-}];
 
-const tomorrow = [{
-    city: 'Lujan',
-    temp: 27,
-    tempMax: 34,
-    tempMin: 22,
-    humedity: 57
-},{
-    city: 'Pueblo nuevo',
-    temp: 28,
-    tempMax: 32,
-    tempMin: 22,
-    humedity: 65
-},{
-    city: 'Rodriguez',
-    temp: 28,
-    tempMax: 34,
-    tempMin: 23,
-    humedity: 55
-},{
-    city: 'Capital federal',
-    temp: 29,
-    tempMax: 32,
-    tempMin: 24,
-    humedity: 51
-},{
-    city: 'Mar del plata',
-    temp: 25,
-    tempMax: 29,
-    tempMin: 21,
-    humedity: 65
-},{
-    city: 'La plata',
-    temp: 35,
-    tempMax: 39,
-    tempMin: 26,
-    humedity: 52
-}];
-
-//Variables donde guardo los elementos HTML, los identifico con un $ para diferenciar de variables logicas
-const $today = d.querySelector('#today');
-const $tomorrow = d.querySelector('#tomorrow');
-const $nameCity = d.querySelector('#namecity');
-const $btnSearch = d.querySelector('#btnsearh');
-const $btnFav = d.querySelector('#btnfav');
-const $selectCity = d.querySelector('#selectcity');
 
 //Plantilla de cards principales HOY y MANANA
 const principalCards = ({temp, tempMax, tempMin, humedity, description,iconImg, date, moment}) =>{
@@ -217,15 +153,8 @@ const principalCards = ({temp, tempMax, tempMin, humedity, description,iconImg, 
 `
 };
 
-//Con este map creo las opciones del select en base a la cantidad de ciudades que tengo en el objeto
-//YA NO LO UTILIZO
-toDay.map((el)=>{
-    const $option = d.createElement('option')
-    $option.setAttribute('value', el.city)
-    $option.textContent = el.city
-    $option.classList.add('optionCity')
-    $selectCity.appendChild($option)
-});
+
+
 
 
 //Creo una escucha sobre el boton de busqueda para tomar el valor del option elegido
@@ -245,36 +174,7 @@ toDay.map((el)=>{
     
 })
 
-//Itero los objetos para obtener los datos que necesito de la resp de la api.
-//YA NO LO UTILIZO
-const dataClimaToday = (toDay, tomorrow, chosenCity) => {
-        
-            for (let index = 0; index < toDay.length; index++){
-                const {city} = toDay[index];
-       
-        
-                if( chosenCity == city){       
-                    const {city, temp, tempMax, tempMin, humedity} = toDay[index];
-                    $nameCity.innerHTML = city
-                    $today.innerHTML =principalCards(temp,tempMax,tempMin,humedity, dateToday,'Hoy')
-                    
-                    };
-                
-                
-            };
-            for (let index = 0; index < tomorrow.length; index++) {
-                const {city} = toDay[index];
-                    
-                if( chosenCity == city){                   
-                    const {temp, tempMax, tempMin, humedity} = tomorrow[index];                
-                    $tomorrow.innerHTML = principalCards(temp,tempMax,tempMin,humedity,'Cielo claro', dateTomorrow, `Mañana`)
-                }
-                
-            }
 
-            
-    
-}
 
 
 //Agrego boton para ejecutar el menu para agregar ciudades como favoritas
@@ -284,13 +184,7 @@ $btnFav.addEventListener('click',(e)=>{
     let favoriteCitys = [];
     const favoriteCitysInMemory = JSON.parse(localStorage.getItem("favCitys"));
     
-    if(favoriteCitysInMemory == ''){
-        favoriteCitys = [];
-    }
-    else{
-        favoriteCitys = favoriteCitysInMemory;
-    }
-      
+    favoriteCitysInMemory == '' ? favoriteCitys = [] : favoriteCitys = favoriteCitysInMemory 
 
     let newFav='';
     
