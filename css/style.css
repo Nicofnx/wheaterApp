@@ -6,49 +6,49 @@
 }
 
 .Clear {
-    background-image: url(./assets/imagenes/clear_sky.webp);
+    background-image: url("./assets/imagenes/clear_sky.webp");
     background-repeat: no-repeat;
     background-size: cover;
     backdrop-filter: blur(3px);
 }
 
 .Thunderstorm {
-    background-image: url(./assets/imagenes/Thunderstorm.jpg);
+    background-image: url("./assets/imagenes/Thunderstorm.jpg");
     background-repeat: no-repeat;
     background-size: cover;
     backdrop-filter: blur(3px);
 }
 
 .Rain {
-    background-image: url(./assets/imagenes/Rain.jpeg);
+    background-image: url("./assets/imagenes/Rain.jpeg");
     background-repeat: no-repeat;
     background-size: cover;
     backdrop-filter: blur(3px);
 }
 
 .Drizzle {
-    background-image: url(./assets/imagenes/Drizzle.webp);
+    background-image: url("./assets/imagenes/Drizzle.webp");
     background-repeat: no-repeat;
     background-size: cover;
     backdrop-filter: blur(3px);
 }
 
 .Snow {
-    background-image: url(./assets/imagenes/Snow.webp);
+    background-image: url("./assets/imagenes/Snow.webp");
     background-repeat: no-repeat;
     background-size: cover;
     backdrop-filter: blur(3px);
 }
 
 .Clouds {
-    background-image: url(./assets/imagenes/Clouds.jpg);
+    background-image: url("./assets/imagenes/Clouds.jpg");
     background-repeat: no-repeat;
     background-size: cover;
     backdrop-filter: blur(3px);
 }
 
 .Atmosphere {
-    background-image: url(./assets/imagenes/clear_sky.webp);
+    background-image: url("./assets/imagenes/clear_sky.webp");
     background-repeat: no-repeat;
     background-size: cover;
     backdrop-filter: blur(3px);
