@@ -1,4 +1,5 @@
 const d = document;
+const key = '332ea3116732c536f6f7f96e8a9e5cae'
 const $today = d.querySelector('#today');
 const $tomorrow = d.querySelector('#tomorrow');
 const $nameCity = d.querySelector('#namecity');
@@ -6,22 +7,51 @@ const $btnSearch = d.querySelector('#btnsearh');
 const $btnFav = d.querySelector('#btnfav');
 const $selectCity = d.querySelector('#selectcity');
 const $background = d.querySelector('#background')
+const DateTime = luxon.DateTime;
+
+window.addEventListener('load',()=>{
+    
+    let lon
+    let lat
+    let url
+    navigator.geolocation.getCurrentPosition( posicion => {
+                       
+            lon = posicion.coords.longitude
+            lat = posicion.coords.latitude
+            url = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${key}&units=metric&lang=sp&cnt=5`
+            loadData(url)
+            
+        })
+    
+})
 
 
-async function loadData(chosenCity) {
-    const resp = await fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${chosenCity}&appid=332ea3116732c536f6f7f96e8a9e5cae&units=metric&lang=sp&cnt=5`);
+
+
+async function loadData(url) {
+    const resp = await fetch(url);
     const data = await resp.json();
     
     const city = data?.city?.name || 'Ciudad no encontrada'
     $nameCity.innerHTML = city
     
-    $today.innerHTML =principalCards({...formatData(data, 0), date: dateToday, moment: 'Hoy'});
-    $tomorrow.innerHTML =principalCards({...formatData(data, 1), date: dateTomorrow, moment: 'Mañana'});
+    $today.innerHTML =principalCards({...formatData(data, 0), date: datesInCards(0), moment: 'Hoy'});
+    $tomorrow.innerHTML =principalCards({...formatData(data, 1), date: datesInCards(24), moment: 'Mañana'});
 
     formatData(data, 0)
 }
 
+//Funcion de luxon para obtener las fechas
 
+const datesInCards = (moment) => {
+    const dt = DateTime.now()    
+    const date = dt.plus({ hours: moment}).toFormat("dd LLL")
+    return date
+    
+}
+
+
+//Funcion para formatear la data que me devuelve la api del clima
 
 const formatData = (data, index) =>{
     const temp = data.list[index].main?.temp.toFixed(1) || 'sin dato';
@@ -80,46 +110,13 @@ const formatData = (data, index) =>{
       return {temp,tempMax,tempMin,humedity,description,iconImg};
 }
 
-//Este es el pedido a la api a usar en el futuro
 
+//Funcion para poner la primer letra de las ciudades en mayus.
 
 function capitalizarPrimeraLetra(str) {
   return str.charAt(0).toUpperCase() + str.slice(1);
 };
 
-
-
-//Bloque de Fechas. Se utilizara para luego dar en cada card la fecha correspondiente al dia de "Hoy" y a los 5 dias posteriores
-const monthNames = [
-    "Enero", "Febrero", "marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
-];
-
-getLongMonthName = function(date) {
-    return monthNames[date.getMonth()];
-}
-
-getShortMonthName = function(date) {
-    return monthNames[date.getMonth()].substring(0, 3);
-}
-
-
-let date = new Date();
-
-
-//Obtengo la fecha de hoy dia y es para la card HOY
-let dateToday = `${date.getDate()} ${getShortMonthName(date)}`
-
-
-const fechaDeManana = () => {
-    let today = new Date();
-    let DIA_EN_MILISEGUNDOS = 24 * 60 * 60 * 1000;
-    let tomorrow = new Date(today.getTime() + DIA_EN_MILISEGUNDOS);
-    return tomorrow;
-};
-
-
-//Obtengo la fecha de manana dia y es para la card MANANA
-let dateTomorrow = `${fechaDeManana().getDate()} ${getShortMonthName(fechaDeManana())}`;
 
 
 
@@ -153,22 +150,14 @@ const principalCards = ({temp, tempMax, tempMin, humedity, description,iconImg, 
 
 
 
-
-
 //Creo una escucha sobre el boton de busqueda para tomar el valor del option elegido
  $btnSearch.addEventListener('click',(e)=>{
     e.preventDefault();
-
     let chosenCity = $selectCity.value;
+    let url = `https://api.openweathermap.org/data/2.5/forecast?q=${chosenCity}&appid=${key}&units=metric&lang=sp&cnt=5`
     console.log(chosenCity);
-    loadData(chosenCity);
-    
-    
-    
-    
+    loadData(url);
 
-    //Llamada a la funcion de la iteracion, donde por parametro le paso el objeto a iterar y la ciudad seleccionada en el select.
-    //dataClimaToday(toDay, tomorrow,chosenCity);
     
 })
 
@@ -180,7 +169,7 @@ $btnFav.addEventListener('click',(e)=>{
     e.preventDefault();    
 
     let favoriteCitys = [];
-    const favoriteCitysInMemory = JSON.parse(localStorage.getItem("favCitys"));
+    let favoriteCitysInMemory = JSON.parse(localStorage.getItem("favCitys"));
     
     favoriteCitysInMemory == '' ? favoriteCitys = [] : favoriteCitys = favoriteCitysInMemory 
 
@@ -318,7 +307,7 @@ $btnFav.addEventListener('click',(e)=>{
 } 
 )
 
-loadData('Buenos Aires');
+
 
 
 
