@@ -6,73 +6,49 @@
 }
 
 .Clear {
-<<<<<<< HEAD
     background-image: url('../assets/imagenes/clear_sky.webp');
-=======
-    background-image: url("../assets/imagenes/clear_sky.webp");
->>>>>>> dd04232cc8cd4b3e3879e596dede06a771162d5a
     background-repeat: no-repeat;
     background-size: cover;
     backdrop-filter: blur(3px);
 }
 
 .Thunderstorm {
-<<<<<<< HEAD
     background-image: url('../assets/imagenes/Thunderstorm.jpg');
-=======
-    background-image: url("../assets/imagenes/Thunderstorm.jpg");
->>>>>>> dd04232cc8cd4b3e3879e596dede06a771162d5a
     background-repeat: no-repeat;
     background-size: cover;
     backdrop-filter: blur(3px);
 }
 
 .Rain {
-<<<<<<< HEAD
     background-image: url('../assets/imagenes/Rain.jpeg');
-=======
-    background-image: url("../assets/imagenes/Rain.jpeg");
->>>>>>> dd04232cc8cd4b3e3879e596dede06a771162d5a
     background-repeat: no-repeat;
     background-size: cover;
     backdrop-filter: blur(3px);
 }
 
 .Drizzle {
-<<<<<<< HEAD
     background-image: url('../assets/imagenes/Drizzle.webp');
-=======
-    background-image: url("../assets/imagenes/Drizzle.webp");
->>>>>>> dd04232cc8cd4b3e3879e596dede06a771162d5a
     background-repeat: no-repeat;
     background-size: cover;
     backdrop-filter: blur(3px);
 }
 
 .Snow {
-<<<<<<< HEAD
     background-image: url('../assets/imagenes/Snow.webp');
-=======
-    background-image: url("../assets/imagenes/Snow.webp");
->>>>>>> dd04232cc8cd4b3e3879e596dede06a771162d5a
     background-repeat: no-repeat;
     background-size: cover;
     backdrop-filter: blur(3px);
 }
 
 .Clouds {
-<<<<<<< HEAD
     background-image: url('../assets/imagenes/Clouds.jpg');
-=======
-    background-image: url("../assets/imagenes/Clouds.jpg");
->>>>>>> dd04232cc8cd4b3e3879e596dede06a771162d5a
     background-repeat: no-repeat;
     background-size: cover;
     backdrop-filter: blur(3px);
 }
 
 .Atmosphere {
-    background-image: url("../assets/imagenes/clear_sky.webp");
+    background-image: url(/assets/imagenes/clear_sky.webp);
     background-repeat: no-repeat;
     background-size: cover;
     backdrop-filter: blur(3px);
