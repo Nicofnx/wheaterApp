@@ -1,5 +1,6 @@
 //Importaciones de archivos
 import { principalCards } from "./planitlla.js";
+import { secundaryCards } from "./plantillaSecundaria.js"
 
 //constantes globales
 const d = document;
@@ -11,6 +12,9 @@ const $btnSearch = d.querySelector('#btnsearh');
 const $btnFav = d.querySelector('#btnfav');
 const $selectCity = d.querySelector('#selectcity');
 const $background = d.querySelector('#background')
+const $day3 = d.querySelector('#day3')
+const $day4 = d.querySelector('#day4')
+const $day5 = d.querySelector('#day5')
 const DateTime = luxon.DateTime;
 
 
@@ -41,7 +45,9 @@ async function loadData(url) {
     
     $today.innerHTML =principalCards({...formatData(data, 0), date: datesInCards(0), moment: 'Hoy'});
     $tomorrow.innerHTML =principalCards({...formatData(data, 1), date: datesInCards(24), moment: 'Mañana'});
-
+    $day3.innerHTML = secundaryCards({...formatData(data, 2), date: datesInCards(48)})
+    $day4.innerHTML = secundaryCards({...formatData(data, 3), date: datesInCards(72)})
+    $day5.innerHTML = secundaryCards({...formatData(data, 4), date: datesInCards(96)})
     formatData(data, 0)
 }
 

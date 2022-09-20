@@ -10,7 +10,7 @@ const principalCards = ({temp, tempMax, tempMin, humedity, description,iconImg, 
             <h5 class="text-center">${date}</h5>
             <div class="img-temp d-flex justify-content-center align-items-center">
                 <img src="${iconImg}" class=" img-clima" alt="logo del pronostico del dia">
-                <div>
+                <div class="text-temp">
                     <h2 id="temptoday" class="m-2">${temp} °C</h2>
                 </div>
             </div>                

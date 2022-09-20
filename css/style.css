@@ -134,6 +134,10 @@ nav {
     }
 }
 
+.card-body {
+    padding-top: 0!important;
+}
+
 .box_switch_desktop{
     width: 140px;
     margin: auto;
@@ -187,7 +191,16 @@ nav {
 
 
 .img-clima{
-    width: 100px;
+    width: 100%;
+    max-width: 200px;
+}
+
+.text-temp{
+    width: 50%;
+}
+
+#temptoday{
+    font-size: 32px;
 }
 
 #temp {
