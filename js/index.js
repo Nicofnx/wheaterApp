@@ -1,3 +1,7 @@
+//Importaciones de archivos
+import { principalCards } from "./planitlla.js";
+
+//constantes globales
 const d = document;
 const key = '332ea3116732c536f6f7f96e8a9e5cae'
 const $today = d.querySelector('#today');
@@ -9,6 +13,8 @@ const $selectCity = d.querySelector('#selectcity');
 const $background = d.querySelector('#background')
 const DateTime = luxon.DateTime;
 
+
+//Escucha de carga de la ventana para autoejecutar el pedido a la API con geolocalizacion, para que te muestre el clima desde donde estas ubicado.
 window.addEventListener('load',()=>{
     
     let lon
@@ -25,9 +31,7 @@ window.addEventListener('load',()=>{
     
 })
 
-
-
-
+// Funcion principal para el pedido de la API y que devuelva el clima del lugar que buscaste en el input.
 async function loadData(url) {
     const resp = await fetch(url);
     const data = await resp.json();
@@ -41,8 +45,8 @@ async function loadData(url) {
     formatData(data, 0)
 }
 
-//Funcion de luxon para obtener las fechas
 
+//Funcion de luxon para obtener las fechas que se muestran en cada card
 const datesInCards = (moment) => {
     const dt = DateTime.now()    
     const date = dt.plus({ hours: moment}).toFormat("dd LLL")
@@ -52,7 +56,6 @@ const datesInCards = (moment) => {
 
 
 //Funcion para formatear la data que me devuelve la api del clima
-
 const formatData = (data, index) =>{
     const temp = data.list[index].main?.temp.toFixed(1) || 'sin dato';
     const tempMax = data.list[index].main?.temp_max.toFixed(1) || 'sin dato';
@@ -61,7 +64,7 @@ const formatData = (data, index) =>{
     const description = capitalizarPrimeraLetra(data.list[index].weather[0].description);
     
     let iconImg = '';
-    
+    //Con un switch modifico los iconos animados y tambien cambio el background del body acorde este el clima
     switch (data.list[index].weather[0].main) {
         case 'Thunderstorm':
             iconImg='./assets/logos/animated/thunder.svg'            
@@ -112,7 +115,6 @@ const formatData = (data, index) =>{
 
 
 //Funcion para poner la primer letra de las ciudades en mayus.
-
 function capitalizarPrimeraLetra(str) {
   return str.charAt(0).toUpperCase() + str.slice(1);
 };
@@ -120,37 +122,7 @@ function capitalizarPrimeraLetra(str) {
 
 
 
-
-//Plantilla de cards principales HOY y MANANA
-const principalCards = ({temp, tempMax, tempMin, humedity, description,iconImg, date, moment}) =>{
-
-    return plantilla = `
-    <div class="bg-glass">
-        <div class="card bg-transparent bg-glass border-white p-1" >
-            <h2 class="text-center">${moment}</h2>
-            <h5 class="text-center">${date}</h5>
-            <div class="img-temp d-flex justify-content-center align-items-center">
-                <img src="${iconImg}" class=" img-clima" alt="logo del pronostico del dia">
-                <div>
-                    <h2 id="temptoday" class="m-2">${temp} °C</h2>
-                </div>
-            </div>                
-            <div class="card-body">
-                <h5 class="card-title fs-5 text-center">${description}</h5>
-            </div>
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item bg-transparent border-white text-center">Temp max: <span class="fw-bold">${tempMax} °C</span></li>
-                <li class="list-group-item bg-transparent border-white text-center">Temp min: <span class="fw-bold">${tempMin} °C</span></li>
-                <li class="list-group-item bg-transparent border-white text-center">Humedad: <span class="fw-bold">${humedity} %</span></li>
-            </ul>                
-        </div>
-    </div>
-`
-};
-
-
-
-//Creo una escucha sobre el boton de busqueda para tomar el valor del option elegido
+//Creo una escucha sobre el boton de busqueda para tomar el valor del input y envio directamente la url a la peticion fetch
  $btnSearch.addEventListener('click',(e)=>{
     e.preventDefault();
     let chosenCity = $selectCity.value;
