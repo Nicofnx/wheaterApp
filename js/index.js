@@ -37,18 +37,26 @@ window.addEventListener('load',()=>{
 
 // Funcion principal para el pedido de la API y que devuelva el clima del lugar que buscaste en el input.
 async function loadData(url) {
-    const resp = await fetch(url);
-    const data = await resp.json();
-    
-    const city = data?.city?.name || 'Ciudad no encontrada'
-    $nameCity.innerHTML = city
-    
-    $today.innerHTML =principalCards({...formatData(data, 0), date: datesInCards(0), moment: 'Hoy'});
-    $tomorrow.innerHTML =principalCards({...formatData(data, 1), date: datesInCards(24), moment: 'Mañana'});
-    $day3.innerHTML = secundaryCards({...formatData(data, 2), date: datesInCards(48)})
-    $day4.innerHTML = secundaryCards({...formatData(data, 3), date: datesInCards(72)})
-    $day5.innerHTML = secundaryCards({...formatData(data, 4), date: datesInCards(96)})
-    formatData(data, 0)
+
+    try{
+        const resp = await fetch(url);
+        const data = await resp.json();
+        
+        const city = data?.city?.name || 'Ciudad no encontrada'
+        $nameCity.innerHTML = city
+        
+        $today.innerHTML =principalCards({...formatData(data, 0), date: datesInCards(0), moment: 'Hoy'});
+        $tomorrow.innerHTML =principalCards({...formatData(data, 1), date: datesInCards(24), moment: 'Mañana'});
+        $day3.innerHTML = secundaryCards({...formatData(data, 2), date: datesInCards(48)})
+        $day4.innerHTML = secundaryCards({...formatData(data, 3), date: datesInCards(72)})
+        $day5.innerHTML = secundaryCards({...formatData(data, 4), date: datesInCards(96)})
+        
+        formatData(data, 0)
+    }
+
+    catch(error){
+        console.error(`Error: ${error}`)
+    }
 }
 
 
