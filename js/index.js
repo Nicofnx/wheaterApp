@@ -46,7 +46,7 @@ async function loadData(url) {
         const city = data?.city?.name || 'Ciudad no encontrada'
         $nameCity.innerHTML = city
         
-        $today.innerHTML =principalCards({...formatData(data, 0), date: datesInCards(0), moment: 'Hoy'});
+        $today.innerHTML =principalCards({...formatData(data, 0), date: datesInCards(0)});
         $day2.innerHTML = secundaryCards({...formatData(data, 1), date: datesInCards(24)})
         $day3.innerHTML = secundaryCards({...formatData(data, 2), date: datesInCards(48)})
         $day4.innerHTML = secundaryCards({...formatData(data, 3), date: datesInCards(72)})
@@ -56,7 +56,10 @@ async function loadData(url) {
     }
 
     catch(error){
-        console.error(`Error: ${error}`)
+        throw new Error(`Error en la busqueda de la ciudad: ${error}`);
+        
+    
+
     }
 }
 
@@ -72,7 +75,7 @@ const datesInCards = (moment) => {
 
 //Funcion para formatear la data que me devuelve la api del clima
 const formatData = (data, index) =>{
-    console.log(data)
+    
     const temp = data.list[index].main?.temp.toFixed(1) || 'sin dato';
     const feelTemp = data.list[index].main?.feels_like.toFixed(1) || 'sin dato';
     const tempMax = data.list[index].main?.temp_max.toFixed(1) || 'sin dato';
@@ -175,14 +178,13 @@ const degWind = (deg) => {
 
 //Funcion para convertir milisegundos en horas y minutos
 const msToTime = (duration) => {
-    
-    let minutes =Math.floor((duration /(1000*60))%60)
-    let hours =Math.floor((duration /(1000*60*60))%24);
 
-    hours =(hours <10)?"0"+ hours : hours;
-    minutes =(minutes <10)?"0"+ minutes : minutes;
-      
-  return `${hours}:${minutes} hs`;
+    const date = new Date(duration * 1000);
+    const hours = date.getHours();
+    const minutes = "0" + date.getMinutes();    
+
+    return `${hours}:${minutes.substr(-2)}`
+    
 }
 
 
@@ -194,7 +196,7 @@ const msToTime = (duration) => {
     e.preventDefault();
     let chosenCity = $selectCity.value;
     let url = `https://api.openweathermap.org/data/2.5/forecast?q=${chosenCity}&appid=${key}&units=metric&lang=sp&cnt=5`
-    console.log(chosenCity);
+    
     loadData(url);
 
     
