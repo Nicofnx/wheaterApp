@@ -2,7 +2,12 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    color: #fff;
+    font-family: 'Open Sans', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 33px;
+    color: #333;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
 }
 
 .Clear {
@@ -123,7 +128,7 @@ nav {
     color: #000;
 }
 
-@media (min-width: 576px) { 
+@media  (min-width: 576px) { 
     .box_switch {
         display: flex!important;
         margin: 5px;
@@ -132,6 +137,147 @@ nav {
     .box_switch_desktop {
         display: none!important;
     }
+
+    .card h3 {
+        font-size: 2.5rem;
+    }
+
+    #temp {
+        font-size: 2.5rem!important;
+        
+    }
+
+    .sunriseset {
+        font-size: 1.5rem!important;
+        padding: 10px!important
+    }
+
+    .logosol {
+    
+        width: 32px!important;;
+        height: 32px!important;;    
+        filter: opacity(70%);
+        
+    }
+
+    .data {
+        font-size: 1.6rem!important;
+    }
+
+    .box-date{
+        height: 60px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    #date {
+        font-size: 2.5rem!important;
+        
+    }
+
+    #feelsTemp {
+        font-size: 1.8rem!important;
+        line-height: 28px!important;
+    }
+
+    
+}
+
+.box-newcard{
+    margin: 75px 0 50px 0;
+    width: 100%;
+    height: 300px;
+    background-color: #fff;
+    display: flex;
+    background: rgba(255, 255, 255, 0.3);
+    box-shadow: 12px 12px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+}
+
+.box-data{
+    position: relative;
+    width: 100%;
+    height: 100%;
+    
+    
+}
+
+.float-card{
+    position: absolute;
+    top: -10%;
+    left: -5%;
+    width: 110%;
+    height: 120%;
+    background: rgba(218, 218, 218, 0.7);
+    box-shadow: 6px 6px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 4px;
+}
+
+.float-card h2 {
+    text-align: center;
+    letter-spacing: 0.2em;
+    font-weight: 800;
+}
+
+.box-img-card{
+    position: absolute;
+    top: 0;
+    width: 100%;
+    
+}
+.box-img-card img{
+    width: 100%;
+    
+    
+}
+
+.box-date {
+    background: rgba(218, 218, 218, 0.7);
+    width: 115%;
+    padding: 5px;
+    border-radius: 7px;
+    font-size: 2.5rem;
+    box-shadow: 6px 6px 4px rgba(0, 0, 0, 0.25);
+    
+}
+
+.box_sunrise_set{
+    position: absolute;
+    bottom: 0;    
+    height: 55px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.sunriseset{
+    font-size: 1rem;
+    width: 100%;
+    height: 100%;
+    padding: 22px 4px 0 4px;
+    text-align: center;
+    
+    
+}
+
+.logosol {
+    
+    width: 18px;
+    height: 18px;    
+    filter: opacity(70%);
+}
+
+
+.data{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    align-items: center;
+    justify-content: space-evenly;
+    text-align: center;
+    font-size: 1.2rem;
+    padding: 10px;
 }
 
 .card-body {
@@ -199,12 +345,27 @@ nav {
     width: 50%;
 }
 
+#namecity {
+    color: #323232;
+    font-size: 4rem;
+}
+
 #temptoday{
     font-size: 32px;
 }
 
+#date {
+    font-size: 1.5rem;
+}
+
 #temp {
-    font-size: 30px;
+    font-size: 1.6rem;
+    font-weight: 800;
+}
+
+#feelsTemp {
+    font-size: 1rem;
+    line-height: 18px;
 }
 
 footer{

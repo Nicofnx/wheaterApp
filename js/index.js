@@ -12,6 +12,7 @@ const $btnSearch = d.querySelector('#btnsearh');
 const $btnFav = d.querySelector('#btnfav');
 const $selectCity = d.querySelector('#selectcity');
 const $background = d.querySelector('#background')
+const $day2 = d.querySelector('#day2')
 const $day3 = d.querySelector('#day3')
 const $day4 = d.querySelector('#day4')
 const $day5 = d.querySelector('#day5')
@@ -46,7 +47,7 @@ async function loadData(url) {
         $nameCity.innerHTML = city
         
         $today.innerHTML =principalCards({...formatData(data, 0), date: datesInCards(0), moment: 'Hoy'});
-        $tomorrow.innerHTML =principalCards({...formatData(data, 1), date: datesInCards(24), moment: 'Mañana'});
+        $day2.innerHTML = secundaryCards({...formatData(data, 1), date: datesInCards(24)})
         $day3.innerHTML = secundaryCards({...formatData(data, 2), date: datesInCards(48)})
         $day4.innerHTML = secundaryCards({...formatData(data, 3), date: datesInCards(72)})
         $day5.innerHTML = secundaryCards({...formatData(data, 4), date: datesInCards(96)})
@@ -71,10 +72,17 @@ const datesInCards = (moment) => {
 
 //Funcion para formatear la data que me devuelve la api del clima
 const formatData = (data, index) =>{
+    console.log(data)
     const temp = data.list[index].main?.temp.toFixed(1) || 'sin dato';
+    const feelTemp = data.list[index].main?.feels_like.toFixed(1) || 'sin dato';
     const tempMax = data.list[index].main?.temp_max.toFixed(1) || 'sin dato';
     const tempMin = data.list[index].main?.temp_min.toFixed(1)|| 'sin dato';
     const humedity = data.list[index].main?.humidity || 'sin dato';
+    const sunrise = msToTime(data.city.sunrise) || 'sin dato;'
+    const sunset = msToTime(data.city.sunset) || 'sin dato';
+    const wind = degWind(data.list[index].wind.deg) || 'sin dato'
+    const speedWind = (data.list[index].wind.speed * 3.6).toFixed(1) || 'sin dato'
+    
     const description = capitalizarPrimeraLetra(data.list[index].weather[0].description);
     
     let iconImg = '';
@@ -124,7 +132,7 @@ const formatData = (data, index) =>{
 
             //console.log('por defecto');
       }
-      return {temp,tempMax,tempMin,humedity,description,iconImg};
+      return {temp,feelTemp,tempMax,tempMin,humedity,description,iconImg,sunrise,sunset, wind, speedWind};
 }
 
 
@@ -132,6 +140,51 @@ const formatData = (data, index) =>{
 function capitalizarPrimeraLetra(str) {
   return str.charAt(0).toUpperCase() + str.slice(1);
 };
+
+
+//Funsion para pasar de grados a direccion de donde proviene el viento.
+const degWind = (deg) => {
+    let wind='';
+    if(deg >= 337.5 && deg <= 22.5){
+        wind = 'Norte'
+    }
+    else if(deg >= 22.6 && deg <= 67.5){
+        wind = 'Noreste'
+    }
+    else if(deg >= 67.6 && deg <= 112.5){
+        wind = 'Este'
+    }
+    else if(deg >= 112.6 && deg <= 157.5){
+        wind = 'Sureste'
+    }
+    else if(deg >= 157.6 && deg <= 202.5){
+        wind = 'Sur'
+    }
+    else if(deg >= 202.6 && deg <= 247.5){
+        wind = 'Suroeste'
+    }
+    else if(deg >= 247.6 && deg <= 292.5){
+        wind = 'Oeste'
+    }
+    else{
+        wind = 'Noroeste'
+    }
+    return wind
+}
+
+
+//Funcion para convertir milisegundos en horas y minutos
+const msToTime = (duration) => {
+    
+    let minutes =Math.floor((duration /(1000*60))%60)
+    let hours =Math.floor((duration /(1000*60*60))%24);
+
+    hours =(hours <10)?"0"+ hours : hours;
+    minutes =(minutes <10)?"0"+ minutes : minutes;
+      
+  return `${hours}:${minutes} hs`;
+}
+
 
 
 

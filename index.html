@@ -10,8 +10,16 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <!--Fheater Icons-->
     <script src="https://unpkg.com/feather-icons"></script>
+    <!--Google Fonts-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+    <!--Font Awesom Icons-->
+    <script src="https://kit.fontawesome.com/ed0bcb7139.js" crossorigin="anonymous"></script>
+    <!--luxon fechas-->
     <script src="./js/luxon.js" ></script>
-    <title>SunWheather App</title>
+    
+    <title>SunWeather App</title>
 </head>
 <body id="background">
 
@@ -47,79 +55,85 @@
     
     <!-------------------->
     <div class="container-fluid container-web mt-3">
+        <div class="text-center">
+            <h1 id="namecity">Ciudad</h1>
+        </div>
         <!----------CARD TODAY---------->
-        <div class="row justify-content-center">
-            <div class="text-center">
-                <h2 id="namecity">Ciudad</h2>
-            </div>
-            <section id="today" class="col-10 m-1 mt-3 col-sm-4 col-md-5">
-                <!-- <div class="bg-glass">
-
-                    <div class="card bg-transparent bg-glass border-white p-1" >
-                        <h2 class="text-center">Hoy</h2>
-                        <h5 class="text-center">16 Ago</h5>
-                        <div class="img-temp d-flex justify-content-center align-items-center">
-                            <img src="./assets/logos/pngwing.com.png" class=" img-clima" alt="logo del pronostico del dia">
-                            <div >
-                                <h2 id="temptoday" class="m-2">25 °C</h2>
-                            </div>
-                        </div>
-                                
-                        <div class="card-body">
-                            <h5 class="card-title fs-5 text-center">Dia inestable</h5>
-                        </div>
-                        <ul class="list-group list-group-flush">
-                            <li id="tempmaxtoday" class="list-group-item bg-transparent border-white text-center">Temp max: <span class="fw-bold">35 °C</span></li>
-                            <li id="tempmintoday" class="list-group-item bg-transparent border-white text-center">Temp min: <span class="fw-bold">15 °C</span></li>
-                            <li id="humeditytoday" class="list-group-item bg-transparent border-white text-center">Humedad: <span class="fw-bold">50 %</span></li>
-                        </ul>
-                                
-                    </div>
-                </div> -->
-                  <!-------------------->  
-                           
         
-                
-                <!-----------CARD TOMORROW--------->
-            </section>
-            <section id="tomorrow" class=" col-10 m-1 mt-3 col-sm-4 col-md-5">
-                <!-- <div class="bg-glass">
-                    <div class="card bg-transparent border-white p-1" >
-                        <h2 class="text-center">manana</h2>
-                        <h5 class="text-center">17 Ago</h5>
-                        <div class="img-temp d-flex justify-content-center align-items-center">
-                            <img src="./assets/logos/pngwing.com.png" class=" img-clima" alt="logo del pronostico del dia">
-                            <div >
-                                <h2 id="temptomorrow" class="m-2">25 °C</h2>
+        
+            <div class="row justify-content-center">
+                <section id="today" class="col-12 m-1 mt-3 col-sm-12 col-md-12">
+                    <!-- <div class="bg-glass">
+    
+                        <div class="card bg-transparent bg-glass border-white p-1" >
+                            <h2 class="text-center">Hoy</h2>
+                            <h5 class="text-center">16 Ago</h5>
+                            <div class="img-temp d-flex justify-content-center align-items-center">
+                                <img src="./assets/logos/pngwing.com.png" class=" img-clima" alt="logo del pronostico del dia">
+                                <div >
+                                    <h2 id="temptoday" class="m-2">25 °C</h2>
+                                </div>
                             </div>
+                                    
+                            <div class="card-body">
+                                <h5 class="card-title fs-5 text-center">Dia inestable</h5>
+                            </div>
+                            <ul class="list-group list-group-flush">
+                                <li id="tempmaxtoday" class="list-group-item bg-transparent border-white text-center">Temp max: <span class="fw-bold">35 °C</span></li>
+                                <li id="tempmintoday" class="list-group-item bg-transparent border-white text-center">Temp min: <span class="fw-bold">15 °C</span></li>
+                                <li id="humeditytoday" class="list-group-item bg-transparent border-white text-center">Humedad: <span class="fw-bold">50 %</span></li>
+                            </ul>
+                                    
                         </div>
-                                
-                        <div class="card-body">
-                            <h5 class="card-title fs-5 text-center">Dia inestable</h5>
+                    </div> -->
+                      <!-------------------->  
+                               
+            
+                    
+                    <!-----------CARD TOMORROW--------->
+                </section>
+                <section id="tomorrow" class=" col-10 m-1 mt-3 col-sm-4 col-md-5">
+                    <!-- <div class="bg-glass">
+                        <div class="card bg-transparent border-white p-1" >
+                            <h2 class="text-center">manana</h2>
+                            <h5 class="text-center">17 Ago</h5>
+                            <div class="img-temp d-flex justify-content-center align-items-center">
+                                <img src="./assets/logos/pngwing.com.png" class=" img-clima" alt="logo del pronostico del dia">
+                                <div >
+                                    <h2 id="temptomorrow" class="m-2">25 °C</h2>
+                                </div>
+                            </div>
+                                    
+                            <div class="card-body">
+                                <h5 class="card-title fs-5 text-center">Dia inestable</h5>
+                            </div>
+                            <ul class="list-group list-group-flush ">
+                                <li class="list-group-item bg-transparent border-white text-center">Temp max: <span class="fw-bold">35 °C</span></li>
+                                <li class="list-group-item bg-transparent border-white text-center">Temp min: <span class="fw-bold">15 °C</span></li>
+                                <li class="list-group-item bg-transparent border-white text-center">Humedad: <span class="fw-bold">50 %</span></li>
+                            </ul>
+                                    
                         </div>
-                        <ul class="list-group list-group-flush ">
-                            <li class="list-group-item bg-transparent border-white text-center">Temp max: <span class="fw-bold">35 °C</span></li>
-                            <li class="list-group-item bg-transparent border-white text-center">Temp min: <span class="fw-bold">15 °C</span></li>
-                            <li class="list-group-item bg-transparent border-white text-center">Humedad: <span class="fw-bold">50 %</span></li>
-                        </ul>
-                                
-                    </div>
+    
+                    </div> -->
+                    
+                </section>
 
-                </div> -->
-                
-            </section>
+            </div>
             <!-------------------->
             <!--------CARDS DIAS POSTERIORES------------>
             <section id="fiveDays" class="mt-5 mb-5">
                 <div class="row">
-                    <div id="day3" class="col-4">
-                        
+                    <div id="day2" class="col-3">                        
                     
                     </div>
-                    <div id="day4" class="col-4">
+                    <div id="day3" class="col-3">                        
+                    
+                    </div>
+                    <div id="day4" class="col-3">
                         
                     </div>
-                    <div id="day5" class="col-4">
+                    <div id="day5" class="col-3">
                         
                     </div>
                 </div>
@@ -132,7 +146,7 @@
     <!-------------------->
     <!---------FOOTER----------->
     <footer>
-        <h1 class="text-center pt-3">SunWheather app web</h1>
+        <h1 class="text-center pt-3">SunWeather app web</h1>
         <h3 class="text-center">Create by NicoFnX</h3>
         <div class="d-flex justify-content-center ">
             <a href="https://www.linkedin.com/in/nicolas-rodriguez-fnx/" target="_blank"><i class="m-2" data-feather="linkedin"></i></a>
@@ -141,13 +155,13 @@
         </div>
 
     </footer>
-    <script>
-        feather.replace()
-      </script>    
+    
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
     <script src="./js/index.js" type="module" ></script>
-    
+    <script>
+        feather.replace()
+      </script>  
     
 </body>
 </html> 
