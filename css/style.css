@@ -150,6 +150,11 @@ nav {
     .temp{
         font-size: 2.5rem!important;
     }
+    .box_sunrise_set{
+        margin: 0!important;
+        flex-direction: row!important;
+        
+    }
 
     .sunriseset {
         font-size: 1.5rem!important;
@@ -257,23 +262,26 @@ nav {
     height: 55px;
     width: 100%;
     display: flex;
+    flex-direction: column;
     align-items: center;
+    margin-bottom: 15px;
 }
 
 .sunriseset{
-    font-size: 1rem;
+    font-size: 1.2rem;
     width: 100%;
-    height: 100%;
-    padding: 22px 4px 0 4px;
+    height: 100%;    
     text-align: center;
+    
+    
     
     
 }
 
 .logosol {
     
-    width: 18px;
-    height: 18px;    
+    width: 22px;
+    height: 22px;    
     filter: opacity(70%);
 }
 
