@@ -306,7 +306,7 @@ nav {
 }
 
 .card-body h4{
-    font-size: 1.2rem!important;
+    font-size: 1rem!important;
 }
 
 .box_switch_desktop{
@@ -331,6 +331,7 @@ nav {
 
 .card h3 {
     padding-top: 20px;
+    font-size: 1.2rem;
 }
 
 .menu-days ul {
@@ -361,7 +362,7 @@ nav {
 }
 
 .temp{
-    font-size: 1.5rem;
+    font-size: 1.2rem;
 }
 
 
