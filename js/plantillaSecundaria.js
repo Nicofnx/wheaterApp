@@ -9,7 +9,7 @@ const secundaryCards = ({temp, description, iconImg, date}) => {
                                 <div class="img-temp d-flex flex-column justify-content-center align-items-center">
                                     <img src="${iconImg}" class=" img-clima" alt="logo del pronostico del dia">
                                     <div>
-                                        <p id="temp" class="m-2 text-center">${temp} °C</p>
+                                        <p class="temp" class="m-2 text-center">${temp} °C</p>
                                     </div>
                                 </div>                                
                                 <div class="card-body p-0">
