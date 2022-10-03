@@ -17,7 +17,7 @@ const principalCards = ({temp, feelTemp, tempMax, tempMin, humedity, description
                 </div>
                 <div class="box-data">
                     <div class="float-card">
-                        <h2>${description}</h2>
+                        <h2 class="text-capitalize">${description}</h2>
                         <div class="box-img-card d-flex justify-content-center align-items-center h-100">
                             <img src="${iconImg}" alt="Logo que representa el clima(nublado, soleado, tormenta, etc)">
                         </div>                        

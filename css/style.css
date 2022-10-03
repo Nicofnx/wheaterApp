@@ -1,3 +1,9 @@
+:root {
+    --color-letra: #323232;
+    --color-letra-secundario: #f3f3f3;
+    --filtro: invert(0);
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -6,57 +12,65 @@
     font-style: normal;
     font-weight: 400;
     line-height: 33px;
-    color: #333;
+    color: var(--color-letra);
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
 }
 
 .Clear {
-    background-image: url('../assets/imagenes/clear_sky.webp');
-    background-repeat: no-repeat;
+    /* background-image: url('../assets/imagenes/clear_sky.webp');
+    background-repeat: no-repeat; */
     background-size: cover;
     backdrop-filter: blur(3px);
+    background-image: linear-gradient(to bottom, #4aa1ff, #00beff, #00d3e9, #47e3c7, #a2eeab, #c1f1a2, #dff39c, #fcf49c, #fbf396, #faf391, #f9f28b, #f8f285);
 }
 
 .Thunderstorm {
-    background-image: url('../assets/imagenes/Thunderstorm.jpg');
-    background-repeat: no-repeat;
+    /* background-image: url('../assets/imagenes/Thunderstorm.jpg');
+    background-repeat: no-repeat; */
     background-size: cover;
     backdrop-filter: blur(3px);
+    background-image: linear-gradient(to bottom, #232629, #292c30, #2f3238, #36393f, #3d3f47, #3e3f49, #3f3f4b, #403f4d, #3a394a, #333447, #2c2e45, #242942);
 }
 
 .Rain {
-    background-image: url('../assets/imagenes/Rain.jpeg');
-    background-repeat: no-repeat;
+    /* background-image: url('../assets/imagenes/Rain.jpeg');
+    background-repeat: no-repeat; */
     background-size: cover;
     backdrop-filter: blur(3px);
+    background-image: linear-gradient(to bottom, #707071, #6d6d70, #6a6a70, #68676f, #65646e, #676671, #6a6974, #6c6b77, #74747f, #7d7d87, #85868f, #8e8f97);
 }
 
 .Drizzle {
-    background-image: url('../assets/imagenes/Drizzle.webp');
-    background-repeat: no-repeat;
+    /* background-image: url('../assets/imagenes/Drizzle.webp');
+    background-repeat: no-repeat; */
     background-size: cover;
     backdrop-filter: blur(3px);
+    background-image: linear-gradient(to bottom, #a0a0c9, #9998c1, #9291b9, #8b89b1, #8482a9, #8583ab, #8584ad, #8685af, #8f8fbb, #979ac7, #a0a4d4, #a9afe0);
 }
 
 .Snow {
-    background-image: url('../assets/imagenes/Snow.webp');
-    background-repeat: no-repeat;
+    /* background-image: url('../assets/imagenes/Snow.webp');
+    background-repeat: no-repeat; */
     background-size: cover;
     backdrop-filter: blur(3px);
+    background-image: linear-gradient(to bottom, #7197c0, #7fa1c6, #8caacd, #9ab4d3, #a7beda, #b2c5de, #bdcce1, #c8d3e5, #d2d8e7, #dbdee8, #e3e4e9, #eaeaeb);
 }
 
 .Clouds {
-    background-image: url('../assets/imagenes/Clouds.jpg');
-    background-repeat: no-repeat;
+    /* background-image: url('../assets/imagenes/Clouds.jpg');
+    background-repeat: no-repeat; */
     background-size: cover;
     backdrop-filter: blur(3px);
+    background-image: linear-gradient(to bottom, #a2a9af, #9caab7, #96abbf, #91acc7, #8caccf, #8facd0, #91acd1, #94acd2, #9dabcb, #a4abc4, #a9abbe, #acacb7);
 }
 
 .Atmosphere {
-    background-image: url(/assets/imagenes/clear_sky.webp);
-    background-repeat: no-repeat;
+    /* background-image: url(/assets/imagenes/clear_sky.webp);
+    background-repeat: no-repeat; */
     background-size: cover;
     backdrop-filter: blur(3px);
+    background-image: linear-gradient(to bottom, #4aa1ff, #00beff, #00d3e9, #47e3c7, #a2eeab, #c1f1a2, #dff39c, #fcf49c, #fbf396, #faf391, #f9f28b, #f8f285);
+
 }
 
 
@@ -139,7 +153,10 @@ nav {
     }
 
     .card h3 {
-        font-size: 2.5rem;
+        font-size: 2.5rem!important;
+    }
+    .description{
+        font-size: 2rem!important;
     }
 
     #temp {
@@ -158,11 +175,11 @@ nav {
 
     .sunriseset {
         font-size: 1.5rem!important;
-        padding: 10px!important
+        padding: 10px 0 15px 0!important
     }
 
     .logosol {
-    
+        filter: var(--filtro);
         width: 32px!important;;
         height: 32px!important;;    
         filter: opacity(70%);
@@ -190,8 +207,9 @@ nav {
         line-height: 28px!important;
     }
 
-    .float-card h2 {
-        font-weight: 800!important;
+    .float-card h2 {        
+        letter-spacing: 0.8rem!important;
+        
     }
 
     
@@ -229,8 +247,9 @@ nav {
 
 .float-card h2 {
     text-align: center;
+    padding-top: 15px;
 
-    letter-spacing: 0.2em;
+    letter-spacing: 0.1em;
     font-weight: 400;
 }
 
@@ -253,6 +272,7 @@ nav {
     border-radius: 7px;
     font-size: 2.5rem;
     box-shadow: 6px 6px 4px rgba(0, 0, 0, 0.25);
+    z-index: 100;
     
 }
 
@@ -283,6 +303,7 @@ nav {
     width: 22px;
     height: 22px;    
     filter: opacity(70%);
+    filter: var(--filtro);
 }
 
 
@@ -305,8 +326,9 @@ nav {
     justify-content: center;
 }
 
-.card-body h4{
+.description{
     font-size: 1rem!important;
+    line-height: 18px;
 }
 
 .box_switch_desktop{
@@ -327,6 +349,10 @@ nav {
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(7.6px);
     -webkit-backdrop-filter: blur(7.6px);
+}
+
+.card {
+    box-shadow: 4px 4px 3px rgba(0, 0, 0, 0.25);
 }
 
 .card h3 {
@@ -375,8 +401,24 @@ nav {
     width: 50%;
 }
 
+.cityfav {
+    display: flex;    
+    justify-content: space-between;
+    align-items: center;
+    margin: 5px;
+       
+}
+
+.btn-city{
+    text-decoration: none;
+    border: none;
+    background-color: #fff
+}
+
+
+
 #namecity {
-    color: #323232;
+    color: var(--color-letra);
     font-size: 4rem;
 }
 
