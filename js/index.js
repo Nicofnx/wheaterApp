@@ -7,40 +7,38 @@ import { secundaryCards } from "./plantillaSecundaria.js"
 //constantes globales
 const d = document;
 const style = d.documentElement.style;
-const key = '332ea3116732c536f6f7f96e8a9e5cae'
+const key = '332ea3116732c536f6f7f96e8a9e5cae';
 const $today = d.querySelector('#today');
 const $citysfavs = d.querySelector('#citysfav')
 const $nameCity = d.querySelector('#namecity');
 const $btnSearch = d.querySelector('#btnsearh');
 const $btnAddFav = d.querySelector('#btnaddfav')
 const $btnFav = d.querySelector('#btnfav');
-const $btnDelete = d.querySelector('#btnsdelete')
 const $selectCity = d.querySelector('#selectcity');
-const $background = d.querySelector('#background')
-const $day2 = d.querySelector('#day2')
-const $day3 = d.querySelector('#day3')
-const $day4 = d.querySelector('#day4')
-const $day5 = d.querySelector('#day5')
+const $background = d.querySelector('#background');
+const $day2 = d.querySelector('#day2');
+const $day3 = d.querySelector('#day3');
+const $day4 = d.querySelector('#day4');
+const $day5 = d.querySelector('#day5');
 const DateTime = luxon.DateTime;
-
 
 
 //Escucha de carga de la ventana para autoejecutar el pedido a la API con geolocalizacion, para que te muestre el clima desde donde estas ubicado.
 window.addEventListener('load',()=>{
     
-    let lon
-    let lat
-    let url
+    let lon;
+    let lat;
+    let url;
     navigator.geolocation.getCurrentPosition( posicion => {
                        
-            lon = posicion.coords.longitude
-            lat = posicion.coords.latitude
+            lon = posicion.coords.longitude;
+            lat = posicion.coords.latitude;
 
             //opcion paga para obtener 16 dias
             //url = `https://api.openweathermap.org/data/2.5/forecast/daily?lat=${lat}&lon={${lon}&cnt=5&appid=${key}`
 
-            url = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${key}&units=metric&lang=sp&`
-            loadData(url)
+            url = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${key}&units=metric&lang=sp&`;
+            loadData(url);
             
         })
     
@@ -53,16 +51,16 @@ async function loadData(url) {
         const resp = await fetch(url);
         const data = await resp.json();
         //console.log(data)
-        const city = data?.city?.name || 'Ciudad no encontrada'
-        $nameCity.innerHTML = city
+        const city = data?.city?.name || 'Ciudad no encontrada';
+        $nameCity.innerHTML = city;
         
         $today.innerHTML =principalCards({...formatData(data, 0), date: datesInCards(0)});
-        $day2.innerHTML = secundaryCards({...formatData(data, 7), date: datesInCards(24)})
-        $day3.innerHTML = secundaryCards({...formatData(data, 15), date: datesInCards(48)})
-        $day4.innerHTML = secundaryCards({...formatData(data, 25), date: datesInCards(72)})
-        $day5.innerHTML = secundaryCards({...formatData(data, 39), date: datesInCards(96)})
+        $day2.innerHTML = secundaryCards({...formatData(data, 7), date: datesInCards(24)});
+        $day3.innerHTML = secundaryCards({...formatData(data, 15), date: datesInCards(48)});
+        $day4.innerHTML = secundaryCards({...formatData(data, 25), date: datesInCards(72)});
+        $day5.innerHTML = secundaryCards({...formatData(data, 39), date: datesInCards(96)});
         
-        formatData(data, 0)
+        formatData(data, 0);
     }
 
     catch(error){
@@ -76,12 +74,11 @@ async function loadData(url) {
 
 //Funcion de luxon para obtener las fechas que se muestran en cada card
 const datesInCards = (moment) => {
-    const dt = DateTime.now()    
-    const date = dt.plus({ hours: moment}).toFormat("dd LLL")
-    return date
+    const dt = DateTime.now();    
+    const date = dt.plus({ hours: moment}).toFormat("dd LLL");
+    return date;
     
 }
-
 
 //Funcion para formatear la data que me devuelve la api del clima
 const formatData = (data, index) =>{
@@ -93,8 +90,8 @@ const formatData = (data, index) =>{
     const humedity = data.list[index].main?.humidity || 'sin dato';
     const sunrise = msToTime(data.city.sunrise) || 'sin dato;'
     const sunset = msToTime(data.city.sunset) || 'sin dato';
-    const wind = degWind(data.list[index].wind.deg) || 'sin dato'
-    const speedWind = (data.list[index].wind.speed * 3.6).toFixed(1) || 'sin dato'    
+    const wind = degWind(data.list[index].wind.deg) || 'sin dato';
+    const speedWind = (data.list[index].wind.speed * 3.6).toFixed(1) || 'sin dato';    
     const description = capitalizarPrimeraLetra(data.list[index].weather[0].description);
     
 
@@ -315,6 +312,7 @@ const seeCitysFavs = (favoriteCitys) =>{
     else{
         const $citysfavs = d.querySelector('#citysfav')    
         $citysfavs.innerHTML= ''
+        //const mensageHTML = document.createElement("div");
         $citysfavs.innerHTML= `<div>No hay ciudades guardadas en favoritos</div>`
     }
     
@@ -351,8 +349,8 @@ $citysfavs.addEventListener('click', (e)=>{
     }
     
 })
-
-
+d.querySelectorAll()
+d.getElementsByClassName
 //Escucha para borrar las ciudades de favoritos
 $citysfavs.addEventListener('click', (e)=>{
     e.preventDefault()
@@ -361,6 +359,7 @@ $citysfavs.addEventListener('click', (e)=>{
         title: 'Estas seguro de eliminar la ciudad de favoritos?',
         text: "Se eliminara la ciudad guardada!",
         icon: 'warning',
+        position: 'top',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
