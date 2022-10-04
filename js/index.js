@@ -64,7 +64,7 @@ async function loadData(url) {
     }
 
     catch(error){
-        console.error(`Error en la busqueda de la ciudad: ${error}`);
+        console.error(`Error en la busqueda de la ciudad. Ciudad no encontrada. Error: ${error}`);
         
     
 
@@ -222,8 +222,16 @@ const msToTime = (duration) => {
 //Escucha para agregar a favoritos una ciudad
 $btnAddFav.addEventListener('click',(e)=>{
     e.preventDefault();
-    let chosenCity = $selectCity.value;    
-    addFavorites(chosenCity)
+    let chosenCity = $nameCity.textContent;  
+    chosenCity === 'Ciudad no encontrada'
+    ? Swal.fire({
+        title: 'Error!',
+        position: 'top',
+        text: 'No se puede guardad una ciudad no encontrada',
+        icon: 'error',
+        confirmButtonText: 'Cerrar'
+      })    
+    : addFavorites(chosenCity)
     
 })
 
