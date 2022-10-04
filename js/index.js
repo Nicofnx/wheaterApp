@@ -330,8 +330,7 @@ const listCitys = (city) =>{
                 <button id="${city} type="button" data-bs-dismiss="modal" class="btn-city" value="${city}">${city}</button> 
             </div>
             <div class="btnsdelete" >            
-                <button id="delete_${city}" "type="button" class="btn btn-danger" >-</button>          
-                
+                <button id="delete_${city}" data-city="${city}" type="button" class="btn btn-danger">Delete</button>          
             </div>
         
         </div>
@@ -355,33 +354,34 @@ $citysfavs.addEventListener('click', (e)=>{
 
 //Escucha para borrar las ciudades de favoritos
 $citysfavs.addEventListener('click', (e)=>{
-    e.preventDefault()
-    
-    Swal.fire({
-        title: 'Estas seguro de eliminar la ciudad de favoritos?',
-        text: "Se eliminara la ciudad guardada!",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Si, Borrar!'
-      }).then((result) => {
-        if (result.isConfirmed) {
-            const btnDelete = e.target.id
-            const id = btnDelete.split('_')[1]
-            favoriteCitys = favoriteCitys.filter((city)=> city != id)
-            seeCitysFavs(favoriteCitys)
-            saveStorage(favoriteCitys)
-          Swal.fire(
-            'Borrada!',
-            'La ciudad se borro satisfactoriamente',
-            'Terminado'
-          )
-        }
-      })
 
-    
-    
+    e.preventDefault()
+
+    if(e.target && e.target.getAttribute("data-city")){
+        Swal.fire({
+            title: 'Estas seguro de eliminar la ciudad de favoritos?',
+            text: "Se eliminara la ciudad guardada!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Si, Borrar!'
+          }).then((result) => {
+            if (result.isConfirmed) {
+                const btnDelete = e.target.id
+                const id = btnDelete.split('_')[1]
+                favoriteCitys = favoriteCitys.filter((city)=> city != id)
+                seeCitysFavs(favoriteCitys)
+                saveStorage(favoriteCitys)
+                Swal.fire(
+                'Borrada!',
+                'La ciudad se borro satisfactoriamente',
+                'Terminado'
+                )
+            }
+        })
+   } 
+
 })
 
 
