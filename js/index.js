@@ -358,13 +358,13 @@ $citysfavs.addEventListener('click', (e)=>{
     e.preventDefault()
     
     Swal.fire({
-        title: 'Are you sure?',
-        text: "You won't be able to revert this!",
+        title: 'Estas seguro de eliminar la ciudad de favoritos?',
+        text: "Se eliminara la ciudad guardada!",
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, delete it!'
+        confirmButtonText: 'Si, Borrar!'
       }).then((result) => {
         if (result.isConfirmed) {
             const btnDelete = e.target.id
@@ -373,9 +373,9 @@ $citysfavs.addEventListener('click', (e)=>{
             seeCitysFavs(favoriteCitys)
             saveStorage(favoriteCitys)
           Swal.fire(
-            'Deleted!',
-            'Your file has been deleted.',
-            'success'
+            'Borrada!',
+            'La ciudad se borro satisfactoriamente',
+            'Terminado'
           )
         }
       })
