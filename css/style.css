@@ -21,8 +21,7 @@
     background-repeat: no-repeat; */
     background-size: cover;
     backdrop-filter: blur(3px);
-    background-image: linear-gradient(to bottom, #4aa1ff, #00beff, #00d3e9, #47e3c7, #a2eeab, #c1f1a2, #dff39c, #fcf49c, #fbf396, #faf391, #f9f28b, #f8f285);
-}
+    background-image: linear-gradient(to right top, #d18a6b, #dc9467, #e4a063, #ebac5f, #eeba5b, #f5b461, #fbae68, #ffa970, #ff958f, #ff8cb9, #e091e1, #9e9efb);}
 
 .Thunderstorm {
     /* background-image: url('../assets/imagenes/Thunderstorm.jpg');
@@ -401,13 +400,7 @@ nav {
     width: 50%;
 }
 
-.cityfav {
-    display: flex;    
-    justify-content: space-between;
-    align-items: center;
-    margin: 5px;
-       
-}
+
 
 .btn-city{
     text-decoration: none;
@@ -415,6 +408,13 @@ nav {
     background-color: #fff
 }
 
+.box_citySfav {
+    display: flex;    
+    justify-content: space-between;
+    align-items: center;
+    margin: 5px;
+
+}
 
 
 #namecity {

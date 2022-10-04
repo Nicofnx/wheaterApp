@@ -12,6 +12,7 @@ const $nameCity = d.querySelector('#namecity');
 const $btnSearch = d.querySelector('#btnsearh');
 const $btnAddFav = d.querySelector('#btnaddfav')
 const $btnFav = d.querySelector('#btnfav');
+const $btnDelete = d.querySelector('#btnsdelete')
 const $selectCity = d.querySelector('#selectcity');
 const $background = d.querySelector('#background')
 const $day2 = d.querySelector('#day2')
@@ -49,7 +50,7 @@ async function loadData(url) {
     try{
         const resp = await fetch(url);
         const data = await resp.json();
-        //console.log(data)
+        console.log(data)
         const city = data?.city?.name || 'Ciudad no encontrada'
         $nameCity.innerHTML = city
         
@@ -63,7 +64,7 @@ async function loadData(url) {
     }
 
     catch(error){
-        throw new Error(`Error en la busqueda de la ciudad: ${error}`);
+        console.error(`Error en la busqueda de la ciudad: ${error}`);
         
     
 
@@ -202,7 +203,7 @@ const msToTime = (duration) => {
  $btnSearch.addEventListener('click',(e)=>{
     e.preventDefault();
     let chosenCity = $selectCity.value;
-    let url = `https://api.openweathermap.org/data/2.5/forecast?q=${chosenCity}&appid=${key}&units=metric&lang=sp&cnt=5`
+    let url = `https://api.openweathermap.org/data/2.5/forecast?q=${chosenCity}&appid=${key}&units=metric&lang=sp`
     
     loadData(url);
     
@@ -231,13 +232,10 @@ const loadStorage = () => {
 //Funcion para el agregado de la ciudad al array de lista de ciudades favoritas
 let favoriteCitys = [];
 let load = loadStorage()
-console.log(load)
+
 if(load != null){
     favoriteCitys = load
 }
- 
-console.log(favoriteCitys)
-
 
 const addFavorites= (newFav) => {        
     if(newFav == '' || newFav == null){
@@ -245,78 +243,96 @@ const addFavorites= (newFav) => {
     }
     else{
         if(newFav != ''){
-            favoriteCitys.push(newFav);
-            alert (`Ciudad ${newFav} agregada`);
+            const cityRep = favoriteCitys.filter((city)=> city==newFav)
+            console.log(cityRep)
+            if(cityRep[0] === newFav){
+                alert('Esta ciudad ya esta guardada')
+            }
+            else{
+                favoriteCitys.push(newFav);
+                alert (`Ciudad ${newFav} agregada`);
+            }
+            
             
         };
-        
     }
-    
     
     saveStorage(favoriteCitys)
     
 };
 
 
-
-
-
-
 //Escucha para ver la lista de ciudades favoritas
 $btnFav.addEventListener('click',(e)=>{
     e.preventDefault();
-``
-    
-    
-    
+
     
     seeCitysFavs(loadStorage());
 
     
 })
 
-
-
-
     
-
-const seeCitysFavs = (favoriteCitys) =>{
-
-    const $citysfavs = d.querySelector('#citysfav')    
-    $citysfavs.innerHTML= ''
-    favoriteCitys.forEach(el => {        
-    $citysfavs.innerHTML+= listCitys(el)
-        
-    });
-
+//funion para rear la lista de ciudades favoritas
+const seeCitysFavs = (favoriteCitys) =>{    
+    if(favoriteCitys.length >0 ){
+        const $citysfavs = d.querySelector('#citysfav')    
+        $citysfavs.innerHTML= ''
+        favoriteCitys.forEach(city => {        
+        $citysfavs.innerHTML+= listCitys(city)            
+        });
+    }
+    else{
+        const $citysfavs = d.querySelector('#citysfav')    
+        $citysfavs.innerHTML= ''
+        $citysfavs.innerHTML= `<div>No hay ciudades guardadas en favoritos</div>`
+    }
+    
     
 };
 
+//Funcion que crea el HTML que se inserta en la lista de ciudades favoritas.
 const listCitys = (city) =>{
+    
     let cityfav = `
-        <div class="cityfav" >
-            <button id="${city} type="button" data-bs-dismiss="modal" class="btn-city" value="${city}">${city}</button> 
-            <button id="${city}delete" "type="button" class="btn btn-danger" value="${city}">-</button>          
-            
+        <div class="box_citySfav" >
+            <div class="cityfav" >
+                <button id="${city} type="button" data-bs-dismiss="modal" class="btn-city" value="${city}">${city}</button> 
+            </div>
+            <div class="btnsdelete" >            
+                <button id="delete_${city}" "type="button" class="btn btn-danger" >-</button>          
+                
+            </div>
+        
         </div>
     `
-
     return cityfav
 } 
     
 
 
+//Escucha para seleccionar la ciudad de la lista de favoritos y se cargue la data de la ciudad seleccionada
 $citysfavs.addEventListener('click', (e)=>{
     e.preventDefault()
     if(e.target.value != ''){
         let chosenCity = e.target.value;
-        let url = `https://api.openweathermap.org/data/2.5/forecast?q=${chosenCity}&appid=${key}&units=metric&lang=sp&cnt=5`
+        let url = `https://api.openweathermap.org/data/2.5/forecast?q=${chosenCity}&appid=${key}&units=metric&lang=sp`
         loadData(url)
     }
-    console.log(e.target.value)
+    
 })
 
 
+//Escucha para borrar las ciudades de favoritos
+$citysfavs.addEventListener('click', (e)=>{
+    e.preventDefault()
+    const btnDelete = e.target.id
+    const id = btnDelete.split('_')[1]
+    favoriteCitys = favoriteCitys.filter((city)=> city != id)
+    seeCitysFavs(favoriteCitys)
+    saveStorage(favoriteCitys)
+    
+})
 
 
 
