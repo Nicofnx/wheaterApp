@@ -359,27 +359,6 @@ nav {
     font-size: 1.2rem;
 }
 
-.menu-days ul {
-    display: flex;
-    justify-content: space-around;
-    padding: 0;
-}
-
-.menu-days ul li{
-    color: #fff;
-    cursor: pointer;
-    list-style: none;
-    
-}
-
-
-
-.menu-days ul li a{
-    text-decoration: none;
-    color: #fff;
-    
-}
-
 
 
 .day-selected{
@@ -400,6 +379,9 @@ nav {
     width: 50%;
 }
 
+.btnHeader {
+    color: #000!important
+}
 
 
 .btn-city{
@@ -413,7 +395,16 @@ nav {
     justify-content: space-between;
     align-items: center;
     margin: 5px;
+    color: #000;
 
+}
+
+.modal-title {
+    color: #000;
+}
+
+.box_citySfav button {
+    color: #000;
 }
 
 

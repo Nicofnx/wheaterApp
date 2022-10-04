@@ -325,10 +325,10 @@ const listCitys = (city) =>{
     let cityfav = `
         <div class="box_citySfav" >
             <div class="cityfav" >
-                <button id="${city} type="button" data-bs-dismiss="modal" class="btn-city" value="${city}">${city}</button> 
+                <button id="${city} type="button" data-city="${city}" data-bs-dismiss="modal" class="btn-city" value="${city}">${city}</button> 
             </div>
             <div class="btnsdelete" >            
-                <button id="delete_${city}" data-city="${city}" type="button" class="btn btn-danger">Delete</button>          
+                <button id="delete_${city}" data-delete="${city}" type="button" class="btn btn-danger"><i data-delete="${city}" class="fa-solid fa-trash-can"></i></button>          
             </div>
         
         </div>
@@ -341,7 +341,7 @@ const listCitys = (city) =>{
 //Escucha para seleccionar la ciudad de la lista de favoritos y se cargue la data de la ciudad seleccionada
 $citysfavs.addEventListener('click', (e)=>{
     e.preventDefault()
-    if(e.target.value != ''){
+    if(e.target.value != '' && e.target.getAttribute("data-city")){
         let chosenCity = e.target.value;
         let url = `https://api.openweathermap.org/data/2.5/forecast?q=${chosenCity}&appid=${key}&units=metric&lang=sp`
         loadData(url)
@@ -354,13 +354,14 @@ $citysfavs.addEventListener('click', (e)=>{
 
     e.preventDefault()
 
-    if(e.target && e.target.getAttribute("data-city")){
+    if(e.target && e.target.getAttribute("data-delete")){
         Swal.fire({
             title: 'Estas seguro de eliminar la ciudad de favoritos?',
             text: "Se eliminara la ciudad guardada!",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
+            position: 'top',
             cancelButtonColor: '#d33',
             confirmButtonText: 'Si, Borrar!'
           }).then((result) => {
@@ -370,11 +371,7 @@ $citysfavs.addEventListener('click', (e)=>{
                 favoriteCitys = favoriteCitys.filter((city)=> city != id)
                 seeCitysFavs(favoriteCitys)
                 saveStorage(favoriteCitys)
-                Swal.fire(
-                'Borrada!',
-                'La ciudad se borro satisfactoriamente',
-                'Terminado'
-                )
+                
             }
         })
    } 
