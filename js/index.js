@@ -2,6 +2,8 @@
 import { principalCards } from "./planitlla.js";
 import { secundaryCards } from "./plantillaSecundaria.js"
 
+
+
 //constantes globales
 const d = document;
 const style = d.documentElement.style;
@@ -50,7 +52,7 @@ async function loadData(url) {
     try{
         const resp = await fetch(url);
         const data = await resp.json();
-        console.log(data)
+        //console.log(data)
         const city = data?.city?.name || 'Ciudad no encontrada'
         $nameCity.innerHTML = city
         
@@ -203,8 +205,18 @@ const msToTime = (duration) => {
  $btnSearch.addEventListener('click',(e)=>{
     e.preventDefault();
     let chosenCity = $selectCity.value;
-    let url = `https://api.openweathermap.org/data/2.5/forecast?q=${chosenCity}&appid=${key}&units=metric&lang=sp`
+    let url=''
+    chosenCity == ''
+        ?Swal.fire({
+            title: 'Error!',
+            position: 'top',
+            text: 'Ingrese una ciudad a buscar',
+            icon: 'error',
+            confirmButtonText: 'Cerrar'
+          })
     
+        :url = `https://api.openweathermap.org/data/2.5/forecast?q=${chosenCity}&appid=${key}&units=metric&lang=sp`
+        
     loadData(url);
     
 })
@@ -239,18 +251,36 @@ if(load != null){
 
 const addFavorites= (newFav) => {        
     if(newFav == '' || newFav == null){
-        alert('Ingreso no valido.')
+        Swal.fire({
+            title: 'Error!',
+            position: 'top',
+            text: 'Debe ingresar una ciudad a guardad en favoritos',
+            icon: 'error',
+            confirmButtonText: 'Cerrar'
+          })
     }
     else{
         if(newFav != ''){
             const cityRep = favoriteCitys.filter((city)=> city==newFav)
             console.log(cityRep)
             if(cityRep[0] === newFav){
-                alert('Esta ciudad ya esta guardada')
+                Swal.fire({
+                    title: 'Aviso!',
+                    position: 'top',
+                    text: 'Esta ciudad ya esta guardada en favoritos',
+                    icon: 'error',
+                    confirmButtonText: 'Cerrar'
+                  })
             }
             else{
                 favoriteCitys.push(newFav);
-                alert (`Ciudad ${newFav} agregada`);
+                Swal.fire({
+                    position: 'top',
+                    icon: 'success',
+                    title: `Ciudad ${newFav} Guardada en favoritos!`,
+                    showConfirmButton: false,
+                    timer: 1500
+                  })
             }
             
             
@@ -326,11 +356,31 @@ $citysfavs.addEventListener('click', (e)=>{
 //Escucha para borrar las ciudades de favoritos
 $citysfavs.addEventListener('click', (e)=>{
     e.preventDefault()
-    const btnDelete = e.target.id
-    const id = btnDelete.split('_')[1]
-    favoriteCitys = favoriteCitys.filter((city)=> city != id)
-    seeCitysFavs(favoriteCitys)
-    saveStorage(favoriteCitys)
+    
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+      }).then((result) => {
+        if (result.isConfirmed) {
+            const btnDelete = e.target.id
+            const id = btnDelete.split('_')[1]
+            favoriteCitys = favoriteCitys.filter((city)=> city != id)
+            seeCitysFavs(favoriteCitys)
+            saveStorage(favoriteCitys)
+          Swal.fire(
+            'Deleted!',
+            'Your file has been deleted.',
+            'success'
+          )
+        }
+      })
+
+    
     
 })
 
@@ -360,123 +410,6 @@ $citysfavs.addEventListener('click', (e)=>{
 
 
 
-
-
-/* const loadDataStorage = (favoriteCitys, index) =>{
-    listCitysFavs='';
-    for (let i = 1; i <= favoriteCitys.length; i++) {       
-        listCitysFavs += favoriteCitys[i-1];
-        if(i == index){
-            loadData(favoriteCitys[i-1]);
-        }
-    };
-    
-
-};
-
-//Agrego boton para ejecutar el menu para agregar ciudades como favoritas
-$btnFav1.addEventListener('click',(e)=>{
-    e.preventDefault();    
-
-    
-    let favoriteCitysInMemory = JSON.parse(localStorage.getItem("favCitys"));
-    
-    favoriteCitysInMemory == '' ? favoriteCitys = [] : favoriteCitys = favoriteCitysInMemory 
-
-    let newFav='';
-    
-    let listCitysFavs = '';
-    
-    //Bloque de funciones
-    
-    //Fuencion para agregar a favoritos
-    
-    //Funciona para ver lista de favoritos
-    
-    
-
-    //Funcion para eliminar una ciudad de la lista de favoritos
-    const deleteCityFavs = (favoriteCitys) => {
-        let optionDelete = parseInt(prompt(`Ingrese el numero de ciudad a borrar de favoritos:\n${seeCitysFavs(favoriteCitys)}`));
-        if(optionDelete > 0){
-            favoriteCitys.splice(optionDelete-1,1);
-            localStorage.setItem("favCitys", JSON.stringify(favoriteCitys));
-            if(seeCitysFavs(favoriteCitys)==''){
-                alert('No hay mas ciudades en favoritos');
-            }
-            else{
-                alert('Se ha borrado con exito la ciudad elegida');
-                alert(`Ciudades en favoritos restantes:\n${seeCitysFavs(favoriteCitys)}`);
-            }
-            
-        }
-        
-    }
-
-    //Funcion de busqueda de ciudad guardada en favoritos
-    const searchCity = (inputCitysearch)=>{        
-        let isInList = favoriteCitys.toString().toLowerCase().includes(inputCitysearch.toLowerCase());
-        return isInList;
-    }
-    ////////////////////////////////
-    //Bloque de operaciones
-    let operaciones = '';
-            
-        while(operaciones != 5){
-
-            operaciones = parseInt(prompt('Ingrese:\n1 para agregar ciudad a favorito\n2 para cargar una ciudad de favoritos\n3 para eliminar una ciudad de favoritos\n4 para buscar si existe ciudad guardada en favoritos\n5 Para salir'));
-            //Operacion 1 agregado de ciudades a favoritos
-            if(operaciones === 1){          
-    
-                
-                do{
-                    newFav = prompt('Ingrese ciudad a guardar en favoritos o "ESC" para finalizar');
-                    addFavorites(newFav);                    
-                }
-                while(newFav != 'ESC');
-            }
-            //Operacion 2 para visualizar todas las ciudades en favoritos
-            else if(operaciones === 2) {
-                if( favoriteCitys == '' && favoriteCitysInMemory == ''){
-                    alert('No hay ciudades en favoritos');
-                    
-                }
-                else{
-                    let loadCity = parseInt(prompt(`Elija la ciudad a cargar\n${seeCitysFavs(favoriteCitys, favoriteCitysInMemory)}`));
-                    loadDataStorage(favoriteCitys, loadCity)
-                }
-                break;
-                                            
-                    
-            }
-            //Operacion 3 para eliminar ciudades de favoritos
-            else if (operaciones === 3){
-                if( favoriteCitys == ''){
-                    alert('No hay ciudades en favoritos');
-                }
-                else{
-                    deleteCityFavs(favoriteCitys);
-
-                }
-                
-                
-            }
-            //Operacion 4 para la busqueda de una ciudad guardada en favoritos (busqueda dentro de un array)
-            else if(operaciones === 4){
-                let inputCitysearch = prompt('Ingrese el nombre de la ciudad a buscar');
-                
-                if (searchCity(inputCitysearch)){
-                    alert(`La ciudad ${inputCitysearch} se encuentra agregada como favorita`);
-                }
-                else{
-                    alert(`La ciudad ${inputCitysearch} NO se encuentra agregada como favorita`);
-                }
-            }
-                
-                
-
-        } */
-            
         
     
     
