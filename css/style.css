@@ -16,6 +16,11 @@
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
 }
 
+body {
+    background-image: linear-gradient(to bottom, #a2a9af, #9caab7, #96abbf, #91acc7, #8caccf, #8facd0, #91acd1, #94acd2, #9dabcb, #a4abc4, #a9abbe, #acacb7);
+
+}
+
 .Clear {
     /* background-image: url('../assets/imagenes/clear_sky.webp');
     background-repeat: no-repeat; */

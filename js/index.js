@@ -25,22 +25,38 @@ const DateTime = luxon.DateTime;
 
 //Escucha de carga de la ventana para autoejecutar el pedido a la API con geolocalizacion, para que te muestre el clima desde donde estas ubicado.
 window.addEventListener('load',()=>{
-    
-    let lon;
-    let lat;
-    let url;
-    navigator.geolocation.getCurrentPosition( posicion => {
-                       
-            lon = posicion.coords.longitude;
-            lat = posicion.coords.latitude;
 
-            //opcion paga para obtener 16 dias
-            //url = `https://api.openweathermap.org/data/2.5/forecast/daily?lat=${lat}&lon={${lon}&cnt=5&appid=${key}`
 
-            url = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${key}&units=metric&lang=sp&`;
-            loadData(url);
-            
-        })
+    const option = {
+        eneableHighAccuracy: true,
+        timeout: 500,
+        maximumAge: 0
+    }
+
+    const succes = (position) => {
+        const lon = position.coords.longitude;
+        const lat = position.coords.latitude;
+        
+
+        const url = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${key}&units=metric&lang=sp&`;
+        loadData(url);
+    }
+
+    const error = (err) => {
+        if(err.code == 1){
+            Swal.fire(
+                'No tiene habilitada la geolocalizacion',
+                `Habilite la geolocalizacion automatica o realice una busqueda` ,
+                'warning'
+              )
+            $nameCity.innerHTML = `<h1 id="namecity">Realice una busqueda</h1>`
+        }
+        
+    }
+
+
+    navigator.geolocation.getCurrentPosition(succes, error, option)
+        
     
 })
 
