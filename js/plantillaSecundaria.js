@@ -1,6 +1,6 @@
 
 let plantillaSecundaria=''
-const secundaryCards = ({temp, description, iconImg, date}) => {
+const secundaryCards = ({temp='--', description='--', iconImg=`./assets/logos/pngwing.com.png`, date='--'}) => {
     
     return plantillaSecundaria = `
                         <div class="bg-glass">

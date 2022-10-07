@@ -17,7 +17,7 @@
 }
 
 body {
-    background-image: linear-gradient(to bottom, #a2a9af, #9caab7, #96abbf, #91acc7, #8caccf, #8facd0, #91acd1, #94acd2, #9dabcb, #a4abc4, #a9abbe, #acacb7);
+        background-image: linear-gradient(to bottom, #a2a9af, #9caab7, #96abbf, #91acc7, #8caccf, #8facd0, #91acd1, #94acd2, #9dabcb, #a4abc4, #a9abbe, #acacb7);
 
 }
 
@@ -121,7 +121,7 @@ nav {
 
 .box_switch{
     min-width: 120px;
-    display: none !important;
+    display: none ;
     padding-right: 5px;
     display: flex;
     align-items: center;
@@ -132,7 +132,7 @@ nav {
 }
 
 #btnsearh{
-    display: block!important
+    display: block
 }
 
 .box-switch{
@@ -146,78 +146,7 @@ nav {
     color: #000;
 }
 
-@media  (min-width: 576px) { 
-    .box_switch {
-        display: flex!important;
-        margin: 5px;
-        
-    }
-    .box_switch_desktop {
-        display: none!important;
-    }
 
-    .card h3 {
-        font-size: 2.5rem!important;
-    }
-    .description{
-        font-size: 2rem!important;
-    }
-
-    #temp {
-        font-size: 2.5rem!important;
-        
-    }
-
-    .temp{
-        font-size: 2.5rem!important;
-    }
-    .box_sunrise_set{
-        margin: 0!important;
-        flex-direction: row!important;
-        
-    }
-
-    .sunriseset {
-        font-size: 1.5rem!important;
-        padding: 10px 0 15px 0!important
-    }
-
-    .logosol {
-        filter: var(--filtro);
-        width: 32px!important;;
-        height: 32px!important;;    
-        filter: opacity(70%);
-        
-    }
-
-    .data {
-        font-size: 1.6rem!important;
-    }
-
-    .box-date{
-        height: 60px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    #date {
-        font-size: 2.5rem!important;
-        
-    }
-
-    #feelsTemp {
-        font-size: 1.8rem!important;
-        line-height: 28px!important;
-    }
-
-    .float-card h2 {        
-        letter-spacing: 0.8rem!important;
-        
-    }
-
-    
-}
 
 .box-newcard{
     margin: 75px 0 50px 0;
@@ -270,8 +199,12 @@ nav {
 }
 
 .box-date {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     background: rgba(218, 218, 218, 0.7);
     width: 115%;
+    height: 40px;
     padding: 5px;
     border-radius: 7px;
     font-size: 2.5rem;
@@ -323,7 +256,7 @@ nav {
 }
 
 .card-body {
-    padding-top: 20px!important;
+    padding-top: 20px;
     min-height: 70px;
     display: flex;
     align-items: center;
@@ -331,7 +264,7 @@ nav {
 }
 
 .description{
-    font-size: 1rem!important;
+    font-size: 1rem;
     line-height: 18px;
 }
 
@@ -385,7 +318,7 @@ nav {
 }
 
 .btnHeader {
-    color: #000!important
+    color: #000
 }
 
 
@@ -423,7 +356,7 @@ nav {
 }
 
 #date {
-    font-size: 1.5rem;
+    font-size: 1rem;
 }
 
 #temp {
@@ -439,4 +372,78 @@ nav {
 footer{
     
     background-color: #5769fb;
+}
+
+@media  (min-width: 576px) { 
+    .box_switch {
+        display: flex;
+        margin: 5px;
+        
+    }
+    .box_switch_desktop {
+        display: none;
+    }
+
+    .card h3 {
+        font-size: 2.2rem;
+    }
+    .description{
+        font-size: 1.3rem;
+    }
+
+    #temp {
+        font-size: 2.2rem;
+        
+    }
+
+    .temp{
+        font-size: 2.2rem;
+    }
+    .box_sunrise_set{
+        margin: 0;
+        flex-direction: row;
+        
+    }
+
+    .sunriseset {
+        font-size: 1.5rem;
+        padding: 10px 0 15px 0
+    }
+
+    .logosol {
+        filter: var(--filtro);
+        width: 32px;;
+        height: 32px;;    
+        filter: opacity(70%);
+        
+    }
+
+    .data {
+        font-size: 1.4rem;
+        padding: 10px 17px 10px 17px;
+    }
+
+    .box-date{
+        height: 60px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    #date {
+        font-size: 2rem;
+        
+    }
+
+    #feelsTemp {
+        font-size: 1.2rem;
+        line-height: 28px;
+    }
+
+    .float-card h2 {        
+        letter-spacing: 0.8rem;
+        
+    }
+
+    
 }

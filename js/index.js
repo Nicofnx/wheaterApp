@@ -1,6 +1,6 @@
 //Importaciones de archivos
 import { principalCards } from "./planitlla.js";
-import { secundaryCards } from "./plantillaSecundaria.js"
+import { secundaryCards } from "./plantillaSecundaria.js";
 
 
 
@@ -26,39 +26,40 @@ const DateTime = luxon.DateTime;
 //Escucha de carga de la ventana para autoejecutar el pedido a la API con geolocalizacion, para que te muestre el clima desde donde estas ubicado.
 window.addEventListener('load',()=>{
 
-
+    //Opciondes de la geo para una busqueda mas certera
     const option = {
         eneableHighAccuracy: true,
         timeout: 500,
         maximumAge: 0
-    }
+    };
 
+    //En caso de obtener la geolocalizacion, se envia la url por parametro a la funcion loadData encargada de pedir info a la API
     const succes = (position) => {
         const lon = position.coords.longitude;
         const lat = position.coords.latitude;
-        
-
         const url = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${key}&units=metric&lang=sp&`;
         loadData(url);
     }
-
+    //Si no tiene habilitada la geolocalicacion sale un alert indicando habilitarla o realziar una busqueda, ya que sino no habra datos para mostrar.
     const error = (err) => {
         if(err.code == 1){
             Swal.fire(
                 'No tiene habilitada la geolocalizacion',
                 `Habilite la geolocalizacion automatica o realice una busqueda` ,
                 'warning'
-              )
-            $nameCity.innerHTML = `<h1 id="namecity">Realice una busqueda</h1>`
+              );
+            $nameCity.innerHTML = `<h1 id="namecity">Realice una busqueda</h1>`;
         }
         
     }
 
 
-    navigator.geolocation.getCurrentPosition(succes, error, option)
+    navigator.geolocation.getCurrentPosition(succes, error, option);
         
     
 })
+
+
 
 // Funcion principal para el pedido de la API y que devuelva el clima del lugar que buscaste en el input.
 async function loadData(url) {
@@ -66,23 +67,39 @@ async function loadData(url) {
     try{
         const resp = await fetch(url);
         const data = await resp.json();
-        //console.log(data)
-        const city = data?.city?.name || 'Ciudad no encontrada';
+        //console.log(data);
+        const city = data?.city?.name;
         $nameCity.innerHTML = city;
         
-        $today.innerHTML =principalCards({...formatData(data, 0), date: datesInCards(0)});
-        $day2.innerHTML = secundaryCards({...formatData(data, 7), date: datesInCards(24)});
-        $day3.innerHTML = secundaryCards({...formatData(data, 15), date: datesInCards(48)});
-        $day4.innerHTML = secundaryCards({...formatData(data, 25), date: datesInCards(72)});
-        $day5.innerHTML = secundaryCards({...formatData(data, 39), date: datesInCards(96)});
-        
+        loadCars(data)       
         formatData(data, 0);
     }
 
     catch(error){
         console.error(`Error en la busqueda de la ciudad. Ciudad no encontrada. Error: ${error}`);
+        const city = 'Ciudad no encontrada';
+        $nameCity.innerHTML = city;
         
-    
+        loadCars()
+        
+    }
+}
+
+
+const loadCars = (data) => {
+    if(data){
+        $today.innerHTML =principalCards({...formatData(data, 0), date: datesInCards(0)});
+        $day2.innerHTML = secundaryCards({...formatData(data, 7), date: datesInCards(24)});
+        $day3.innerHTML = secundaryCards({...formatData(data, 15), date: datesInCards(48)});
+        $day4.innerHTML = secundaryCards({...formatData(data, 25), date: datesInCards(72)});
+        $day5.innerHTML = secundaryCards({...formatData(data, 39), date: datesInCards(96)});
+    }
+    else{
+        $today.innerHTML =principalCards({date: datesInCards(0)});
+        $day2.innerHTML = secundaryCards({date: datesInCards(24)});
+        $day3.innerHTML = secundaryCards({date: datesInCards(48)});
+        $day4.innerHTML = secundaryCards({date: datesInCards(72)});
+        $day5.innerHTML = secundaryCards({date: datesInCards(96)});
 
     }
 }
@@ -99,54 +116,54 @@ const datesInCards = (moment) => {
 //Funcion para formatear la data que me devuelve la api del clima
 const formatData = (data, index) =>{
     
-    const temp = data.list[index].main?.temp.toFixed(1) || 'sin dato';
-    const feelTemp = data.list[index].main?.feels_like.toFixed(1) || 'sin dato';
-    const tempMax = data.list[index].main?.temp_max.toFixed(1) || 'sin dato';
-    const tempMin = data.list[index].main?.temp_min.toFixed(1)|| 'sin dato';
-    const humedity = data.list[index].main?.humidity || 'sin dato';
-    const sunrise = msToTime(data.city.sunrise) || 'sin dato;'
-    const sunset = msToTime(data.city.sunset) || 'sin dato';
-    const wind = degWind(data.list[index].wind.deg) || 'sin dato';
-    const speedWind = (data.list[index].wind.speed * 3.6).toFixed(1) || 'sin dato';    
-    const description = capitalizarPrimeraLetra(data.list[index].weather[0].description);
+    const temp = data?.list[index].main.temp.toFixed(1);
+    const feelTemp = data?.list[index].main.feels_like.toFixed(1);
+    const tempMax = data?.list[index].main.temp_max.toFixed(1);
+    const tempMin = data?.list[index].main.temp_min.toFixed(1);
+    const humedity = data?.list[index].main.humidity;
+    const sunrise = msToTime(data?.city.sunrise);
+    const sunset = msToTime(data?.city.sunset);
+    const wind = degWind(data?.list[index].wind.deg);
+    const speedWind = (data?.list[index].wind.speed * 3.6).toFixed(1);    
+    const description = capitalizarPrimeraLetra(data?.list[index].weather[0].description);
     
 
     let iconImg = '';
     //Con un switch modifico los iconos animados y tambien cambio el background del body acorde este el clima
-    switch (data.list[index].weather[0].main) {
+    switch (data?.list[index].weather[0].main) {
         case 'Thunderstorm':
             iconImg='./assets/logos/animated/thunder.svg'  
-            changeColorFontAndBakground('#f3f3f3', 'invert(0.94)', 'Thunderstorm') 
+            changeColorFontAndBakground('#f3f3f3', 'invert(0.94)', 'Thunderstorm');
             //console.log('TORMENTA');
           break;
         case 'Drizzle':
             iconImg='./assets/logos/animated/rainy-2.svg'
-            changeColorFontAndBakground('#323232', 'invert(0)','Drizzle') 
+            changeColorFontAndBakground('#323232', 'invert(0)','Drizzle');
             //console.log('LLOVIZNA');    
           break;
         case 'Rain':
             iconImg='./assets/logos/animated/rainy-7.svg'
-            changeColorFontAndBakground('#f3f3f3', 'invert(0.94)', 'Rain')
+            changeColorFontAndBakground('#f3f3f3', 'invert(0.94)', 'Rain');
             //console.log('LLUVIA');
           break;
         case 'Snow':
             iconImg='./assets/logos/animated/snowy-6.svg'            
-            changeColorFontAndBakground('#323232', 'invert(0)', 'Snow') 
+            changeColorFontAndBakground('#323232', 'invert(0)', 'Snow');
             //console.log('NIEVE');
           break;                        
         case 'Clear':
             iconImg='./assets/logos/animated/day.svg'            
-            changeColorFontAndBakground('#3d3d3d', 'invert(0)','Clear')            
+            changeColorFontAndBakground('#3d3d3d', 'invert(0)','Clear');           
             //console.log('LIMPIO');
           break;
         case 'Atmosphere':
             iconImg='./assets/logos/animated/weather.svg'
-            changeColorFontAndBakground('#3d3d3d', 'invert(0)','Clear') 
+            changeColorFontAndBakground('#3d3d3d', 'invert(0)','Clear');
             //console.log('ATMOSFERA');
             break;  
         case 'Clouds':
             iconImg='./assets/logos/animated/cloudy-day-1.svg'            
-            changeColorFontAndBakground('#323232', 'invert(0)','Clouds')            
+            changeColorFontAndBakground('#323232', 'invert(0)','Clouds');         
             //console.log('NUBES');
             break;  
         default:
@@ -159,9 +176,9 @@ const formatData = (data, index) =>{
 
 //Funcion para cambiar el color de la fuente y fondo aorde al clima de hoy
 const changeColorFontAndBakground = (colorFont, filter, background) => {
-    $background.className = background
-    style.setProperty('--color-letra', colorFont)
-    style.setProperty('--filtro', filter)
+    $background.className = background;
+    style.setProperty('--color-letra', colorFont);
+    style.setProperty('--filtro', filter);
 }
 
 //Funcion para poner la primer letra de las ciudades en mayus.
@@ -174,30 +191,30 @@ function capitalizarPrimeraLetra(str) {
 const degWind = (deg) => {
     let wind='';
     if(deg >= 337.5 && deg <= 22.5){
-        wind = 'Norte'
+        wind = 'Norte';
     }
     else if(deg >= 22.6 && deg <= 67.5){
-        wind = 'Noreste'
+        wind = 'Noreste';
     }
     else if(deg >= 67.6 && deg <= 112.5){
-        wind = 'Este'
+        wind = 'Este';
     }
     else if(deg >= 112.6 && deg <= 157.5){
-        wind = 'Sureste'
+        wind = 'Sureste';
     }
     else if(deg >= 157.6 && deg <= 202.5){
-        wind = 'Sur'
+        wind = 'Sur';
     }
     else if(deg >= 202.6 && deg <= 247.5){
-        wind = 'Suroeste'
+        wind = 'Suroeste';
     }
     else if(deg >= 247.6 && deg <= 292.5){
-        wind = 'Oeste'
+        wind = 'Oeste';
     }
     else{
-        wind = 'Noroeste'
+        wind = 'Noroeste';
     }
-    return wind
+    return wind;
 }
 
 
@@ -206,10 +223,10 @@ const msToTime = (duration) => {
 
     const date = new Date(duration * 1000);
     let hours = '';
-    hours < 10 ? hours = "0" + date.getHours() : hours = date.getHours()
+    hours < 10 ? hours = "0" + date.getHours() : hours = date.getHours();
     const minutes = "0" + date.getMinutes();    
 
-    return `${hours.substr(-2)}:${minutes.substr(-2)}`
+    return `${hours.substr(-2)}:${minutes.substr(-2)}`;
     
 }
 
@@ -218,7 +235,7 @@ const msToTime = (duration) => {
  $btnSearch.addEventListener('click',(e)=>{
     e.preventDefault();
     let chosenCity = $selectCity.value;
-    let url=''
+    let url='';
     chosenCity == ''
         ?Swal.fire({
             title: 'Error!',
@@ -228,7 +245,7 @@ const msToTime = (duration) => {
             confirmButtonText: 'Cerrar'
           })
     
-        :url = `https://api.openweathermap.org/data/2.5/forecast?q=${chosenCity}&appid=${key}&units=metric&lang=sp`
+        :url = `https://api.openweathermap.org/data/2.5/forecast?q=${chosenCity}&appid=${key}&units=metric&lang=sp`;
         
     loadData(url);
     
@@ -247,7 +264,7 @@ $btnAddFav.addEventListener('click',(e)=>{
         icon: 'error',
         confirmButtonText: 'Cerrar'
       })    
-    : addFavorites(chosenCity)
+    : addFavorites(chosenCity);
     
 })
 
@@ -258,16 +275,16 @@ const saveStorage = (favoriteCitys) => {
 
 //funcion para obtener info del localStorage
 const loadStorage = () => {    
-    let localStorageData = JSON.parse(localStorage.getItem("favCitys"))    
-    return localStorageData
+    let localStorageData = JSON.parse(localStorage.getItem("favCitys"))    ;
+    return localStorageData;
 }
 
 //Funcion para el agregado de la ciudad al array de lista de ciudades favoritas
 let favoriteCitys = [];
-let load = loadStorage()
+let load = loadStorage();
 
 if(load != null){
-    favoriteCitys = load
+    favoriteCitys = load;
 }
 
 const addFavorites= (newFav) => {        
@@ -278,12 +295,12 @@ const addFavorites= (newFav) => {
             text: 'Debe ingresar una ciudad a guardad en favoritos',
             icon: 'error',
             confirmButtonText: 'Cerrar'
-          })
+          });
     }
     else{
         if(newFav != ''){
-            const cityRep = favoriteCitys.filter((city)=> city==newFav)
-            console.log(cityRep)
+            const cityRep = favoriteCitys.filter((city)=> city==newFav);
+            //console.log(cityRep)
             if(cityRep[0] === newFav){
                 Swal.fire({
                     title: 'Aviso!',
@@ -291,7 +308,7 @@ const addFavorites= (newFav) => {
                     text: 'Esta ciudad ya esta guardada en favoritos',
                     icon: 'error',
                     confirmButtonText: 'Cerrar'
-                  })
+                  });
             }
             else{
                 favoriteCitys.push(newFav);
@@ -308,7 +325,7 @@ const addFavorites= (newFav) => {
         };
     }
     
-    saveStorage(favoriteCitys)
+    saveStorage(favoriteCitys);
     
 };
 
@@ -330,14 +347,14 @@ const seeCitysFavs = (favoriteCitys) =>{
         const $citysfavs = d.querySelector('#citysfav')    
         $citysfavs.innerHTML= ''
         favoriteCitys.forEach(city => {        
-        $citysfavs.innerHTML+= listCitys(city)            
+        $citysfavs.innerHTML+= listCitys(city);      
         });
     }
     else{
-        const $citysfavs = d.querySelector('#citysfav')    
-        $citysfavs.innerHTML= ''
+        const $citysfavs = d.querySelector('#citysfav');   
+        $citysfavs.innerHTML= '';
         //const mensageHTML = document.createElement("div");
-        $citysfavs.innerHTML= `<div>No hay ciudades guardadas en favoritos</div>`
+        $citysfavs.innerHTML= `<div>No hay ciudades guardadas en favoritos</div>`;
     }
     
     
@@ -356,19 +373,19 @@ const listCitys = (city) =>{
             </div>
         
         </div>
-    `
-    return cityfav
+    `;
+    return cityfav;
 } 
     
 
 
 //Escucha para seleccionar la ciudad de la lista de favoritos y se cargue la data de la ciudad seleccionada
 $citysfavs.addEventListener('click', (e)=>{
-    e.preventDefault()
+    e.preventDefault();
     if(e.target.value != '' && e.target.getAttribute("data-city")){
         let chosenCity = e.target.value;
         let url = `https://api.openweathermap.org/data/2.5/forecast?q=${chosenCity}&appid=${key}&units=metric&lang=sp`
-        loadData(url)
+        loadData(url);
     }
     
 })
@@ -376,7 +393,7 @@ $citysfavs.addEventListener('click', (e)=>{
 //Escucha para borrar las ciudades de favoritos
 $citysfavs.addEventListener('click', (e)=>{
 
-    e.preventDefault()
+    e.preventDefault();
 
     if(e.target && e.target.getAttribute("data-delete")){
         Swal.fire({
@@ -400,7 +417,7 @@ $citysfavs.addEventListener('click', (e)=>{
         })
    } 
 
-})
+});
 
 
 

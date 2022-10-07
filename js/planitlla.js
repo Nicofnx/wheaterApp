@@ -1,7 +1,7 @@
 //Plantilla de cards principales HOY y MANANA
 let plantilla =''
 
-const principalCards = ({temp, feelTemp, tempMax, tempMin, humedity, description,iconImg, date, sunrise, sunset, wind, speedWind}) =>{
+const principalCards = ({temp='--', feelTemp='--', tempMax='--', tempMin='--', humedity='--', description='Sin descripcion',iconImg=`./assets/logos/clima-logo.png`, date='--', sunrise='--', sunset, wind='--', speedWind='--'}) =>{
 
     return plantilla = `
     <div class="justify-content-center">
