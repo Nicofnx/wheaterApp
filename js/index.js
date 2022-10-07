@@ -1,6 +1,7 @@
 //Importaciones de archivos
 import { principalCards } from "./planitlla.js";
 import { secundaryCards } from "./plantillaSecundaria.js";
+import { listCitys } from "./listaFavs.js"
 
 
 
@@ -71,7 +72,9 @@ async function loadData(url) {
         const city = data?.city?.name;
         $nameCity.innerHTML = city;
         
-        loadCars(data)       
+        loadCars(data)
+
+        // Uso esta funcion para cambiar estilos acorde al pronostico del momento       
         formatData(data, 0);
     }
 
@@ -80,7 +83,7 @@ async function loadData(url) {
         const city = 'Ciudad no encontrada';
         $nameCity.innerHTML = city;
         
-        loadCars()
+        loadCars(false)
         
     }
 }
@@ -305,7 +308,7 @@ const addFavorites= (newFav) => {
                 Swal.fire({
                     title: 'Aviso!',
                     position: 'top',
-                    text: 'Esta ciudad ya esta guardada en favoritos',
+                    text: `La ciudad ${newFav} ya esta guardada en favoritos`,
                     icon: 'error',
                     confirmButtonText: 'Cerrar'
                   });
@@ -335,14 +338,14 @@ $btnFav.addEventListener('click',(e)=>{
     e.preventDefault();
 
     
-    seeCitysFavs(loadStorage());
+    showCitysFavs(loadStorage());
 
     
 })
 
     
-//funion para rear la lista de ciudades favoritas
-const seeCitysFavs = (favoriteCitys) =>{    
+//funion para crear la lista de ciudades favoritas
+const showCitysFavs = (favoriteCitys) =>{    
     if(favoriteCitys.length >0 ){
         const $citysfavs = d.querySelector('#citysfav')    
         $citysfavs.innerHTML= ''
@@ -360,22 +363,7 @@ const seeCitysFavs = (favoriteCitys) =>{
     
 };
 
-//Funcion que crea el HTML que se inserta en la lista de ciudades favoritas.
-const listCitys = (city) =>{
-    
-    let cityfav = `
-        <div class="box_citySfav" >
-            <div class="cityfav" >
-                <button id="${city} type="button" data-city="${city}" data-bs-dismiss="modal" class="btn-city" value="${city}">${city}</button> 
-            </div>
-            <div class="btnsdelete" >            
-                <button id="delete_${city}" data-delete="${city}" type="button" class="btn btn-danger">Borrar</button>          
-            </div>
-        
-        </div>
-    `;
-    return cityfav;
-} 
+
     
 
 
@@ -410,7 +398,7 @@ $citysfavs.addEventListener('click', (e)=>{
                 const btnDelete = e.target.id
                 const id = btnDelete.split('_')[1]
                 favoriteCitys = favoriteCitys.filter((city)=> city != id)
-                seeCitysFavs(favoriteCitys)
+                showCitysFavs(favoriteCitys)
                 saveStorage(favoriteCitys)
                 
             }
