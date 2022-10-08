@@ -1,8 +1,8 @@
-
+let cityfav =''
 //Funcion que crea el HTML que se inserta en la lista de ciudades favoritas.
 const listCitys = (city) =>{
     
-    let cityfav = `
+    return cityfav = `
         <div class="box_citySfav" >
             <div class="cityfav" >
                 <button id="${city} type="button" data-city="${city}" data-bs-dismiss="modal" class="btn-city" value="${city}">${city}</button> 
@@ -13,7 +13,7 @@ const listCitys = (city) =>{
         
         </div>
     `;
-    return cityfav;
+    
 } 
 
 export {listCitys}
